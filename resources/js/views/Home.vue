@@ -1,50 +1,55 @@
 <template>
-    <div class="container-fluid main-view">
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="view-iframe-one">
-                    <div class="vertical-center">
-                        <div class="card card-view">
-                            <div class="card-body-text text-center">
-                                <h1 class="text-title">Los mejores libros para hoy</h1>
-                                <p class="text-subtitle">
-                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
-                                </p>
-                                <div class="content-info">
-                                    <div id="content-img-books">
-                                        <img id="img-book" src="/image/books-list.png" alt="books" width="">
-                                        <div @click="bookOne(listBook[0])" id="book-one" class="style-select-book"></div>
-                                        <div @click="bookOne(listBook[1])" id="book-two" class="style-select-book"></div>
+    <div>
+        <video autoplay muted loop id="myVideo">
+            <source src="/video/library-rigth.mp4" type="video/mp4">
+        </video>
+        <div class="container-fluid main-view">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="view-iframe-one">
+                        <div class="vertical-center">
+                            <div class="card card-view">
+                                <div class="card-body-text text-center">
+                                    <h1 class="text-title">Los mejores libros para hoy</h1>
+                                    <p class="text-subtitle">
+                                        Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
+                                    </p>
+                                    <div class="content-info">
+                                        <div id="content-img-books">
+                                            <img id="img-book" src="/image/books-list.png" alt="books" width="">
+                                            <div @click="bookOne(listBook[0])" id="book-one" class="style-select-book"></div>
+                                            <div @click="bookOne(listBook[1])" id="book-two" class="style-select-book"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div v-if="openPDF" @click="bookOne" id="close-pdf-read">
-                                <span class="close-pdf">X</span>
-                            </div>
-                            <div v-if="openPDF" @click="bookOne" id="pdf-read">
-                                <!-- <iframe :src="urlBook + '#toolbar=0'" sin opciones -->
-                                <iframe :src="urlBook"
-                                    width="100%"
-                                    height="100%" />
+                                <div v-if="openPDF" @click="bookOne" id="close-pdf-read">
+                                    <span class="close-pdf">X</span>
+                                </div>
+                                <div v-if="openPDF" @click="bookOne" id="pdf-read">
+                                    <!-- <iframe :src="urlBook + '#toolbar=0'" sin opciones -->
+                                    <iframe :src="urlBook"
+                                        width="100%"
+                                        height="100%" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="view-iframe-two">
-                    <div class="vertical-center">
-                        <div class="card">
-                            <div class="view-body">
-                                <iframe id="iframe-video" width=""
-                                    height=""
-                                    :src="urlTransmision"
-                                    title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen />
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="view-iframe-two">
+                        <div class="vertical-center">
+                            <div class="card">
+                                <div class="view-body">
+                                    <iframe id="iframe-video" width=""
+                                        height=""
+                                        :src="urlTransmision"
+                                        title="YouTube video player"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,6 +86,14 @@
 </script>
 
 <style>
+    #myVideo {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
     .card-view {
         background-color: #fff0;
         border: 1px solid rgb(0 0 0 / 0%);
@@ -97,10 +110,10 @@
         font-weight: bold;
     }
     .main-view {
-        background-image: url("/image/backgroud-image.png");
+        /* background-image: url("/image/backgroud-image.png");
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: cover; */
         min-height: 100vh;
     }
     .view-iframe-one {
