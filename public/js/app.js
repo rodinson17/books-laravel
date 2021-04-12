@@ -1941,6 +1941,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -37838,9 +37843,10 @@ var render = function() {
                       "div",
                       { attrs: { id: "pdf-read" }, on: { click: _vm.bookOne } },
                       [
-                        _c("iframe", {
+                        _c("embed", {
                           attrs: {
                             src: _vm.urlBook,
+                            type: "application/pdf",
                             width: "100%",
                             height: "100%"
                           }

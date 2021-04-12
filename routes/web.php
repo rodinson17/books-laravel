@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
+Route::middleware(['auth'])->group( function() {
+    Route::get(
+        '/landing',
+        [ LandingController::class, 'index' ]
+    )->name('landing');
 });
+
+
+Route::get('/', function () {
+    return view('login');
+})->name('main');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+/* Route::middleware(['first', 'second'])->group(function () {
+    Route::get(
+        '/user/profile',
+        [UserProfileController::class, 'show']
+    )->name('profile');
+
+    Route::get('/user/profile', function () {
+        // Uses first & second middleware...
+    });
+}); */

@@ -28,9 +28,14 @@
                                 </div>
                                 <div v-if="openPDF" @click="bookOne" id="pdf-read">
                                     <!-- <iframe :src="urlBook + '#toolbar=0'" sin opciones -->
-                                    <iframe :src="urlBook"
+                                    <embed :src="urlBook"
+                                        type="application/pdf"
                                         width="100%"
                                         height="100%" />
+                                    <!-- <iframe :src="urlBook"
+                                        type="application/pdf"
+                                        width="100%"
+                                        height="100%" /> -->
                                 </div>
                             </div>
                         </div>
