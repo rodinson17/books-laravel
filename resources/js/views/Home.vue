@@ -10,13 +10,13 @@
                         <div class="vertical-center">
                             <div class="card card-view">
                                 <div class="card-body-text text-center">
-                                    <h1 class="text-title">Los mejores libros para hoy</h1>
-                                    <p class="text-subtitle">
+                                    <h1 class="text-title animate__animated animate__backInDown animate__slow">Los mejores libros para hoy</h1>
+                                    <p class="text-subtitle animate__animated animate__jackInTheBox animate__slower">
                                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
                                     </p>
                                     <div class="content-info">
                                         <div id="content-img-books">
-                                            <img id="img-book" src="/image/books-list.png" alt="books" width="">
+                                            <img id="img-book" class="animate__animated animate__zoomIn animate__slower" src="/image/books-list.png" alt="books" width="">
                                             <div @click="bookOne(listBook[0])" id="book-one" class="style-select-book"></div>
                                             <div @click="bookOne(listBook[1])" id="book-two" class="style-select-book"></div>
                                         </div>
@@ -45,7 +45,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-6">
                     <div class="view-iframe-two">
                         <div class="vertical-center">
-                            <div class="card">
+                            <div class="card animate__animated animate__slideInRight animate__slower">
                                 <div class="view-body">
                                     <iframe id="iframe-video" width=""
                                         height=""
@@ -76,12 +76,12 @@
         },
         methods: {
             bookOne( url = '' ) {
-                console.log('hola bebe...', url);
                 this.openPDF = !this.openPDF;
                 this.urlBook = url;
             }
         },
         created() {
+            /* Lista de libros */
             this.listBook = [
                 '/book/PFC_RogerGimeno.pdf',
                 '/book/reconocimiento en tiempo real.pdf',
@@ -210,6 +210,16 @@
         color: #fff;
         font-size: 2rem;
     }
+
+    /* Animaciones */
+    /* .animate__animated {
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-duration: var(--animate-duration);
+        animation-duration: var(--animate-duration);
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    } */
 
     @media (min-width: 30px) and (max-width: 991.98px) {
         .vertical-center {

@@ -7,12 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <title>{{ config('app.name', 'Books') }}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/image/favi.png">
 
     <link rel="stylesheet" type="text/css" href="/app-assets/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -93,5 +92,16 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     @stack('scripts')
+
+    <script>
+        $(window).on('load', function () {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        });
+    </script>
 </body>
 </html>

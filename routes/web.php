@@ -23,7 +23,8 @@ Route::middleware(['auth'])->group( function() {
 
 
 Route::get('/', function () {
-    return view('login');
+    //return view('/login');
+    return redirect('/login');
 })->name('main');
 
 Auth::routes();

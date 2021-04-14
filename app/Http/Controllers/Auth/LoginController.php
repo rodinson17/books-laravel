@@ -45,6 +45,6 @@ class LoginController extends Controller
         Auth::logout();
         //auth()->logout();
         //Session::flush();
-        return redirect('/');
+        return redirect('/login');
     }
 }

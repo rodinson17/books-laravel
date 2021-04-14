@@ -1958,12 +1958,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     bookOne: function bookOne() {
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      console.log('hola bebe...', url);
       this.openPDF = !this.openPDF;
       this.urlBook = url;
     }
   },
   created: function created() {
+    /* Lista de libros */
     this.listBook = ['/book/PFC_RogerGimeno.pdf', '/book/reconocimiento en tiempo real.pdf'];
   }
 });
@@ -6510,7 +6510,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#myVideo {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n}\n.card-view {\n    background-color: #fff0;\n    border: 1px solid rgb(0 0 0 / 0%);\n}\n.text-subtitle {\n    color: white;\n    font-size: 1.1rem;\n    text-align: justify;\n    margin: 2rem 0;\n}\n.text-title {\n    color: white;\n    font-size: 2.5rem;\n    font-weight: bold;\n}\n.main-view {\n    /* background-image: url(\"/image/backgroud-image.png\");\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover; */\n    min-height: 100vh;\n}\n.view-iframe-one {\n    position: relative;\n    min-height: 100vh;\n}\n.view-iframe-two {\n    position: relative;\n    min-height: 100vh;\n}\n.card-body-text {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 1.25rem;\n}\n.vertical-center {\n    margin: 0;\n    padding: 1rem;\n    width: 100%;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n}\n.view-body {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 0.5rem !important;\n}\n.content-info {\n    /* position: relative; */\n}\n#iframe-video {\n    width: 100%;\n    height: 22rem;\n}\n\n/* style for books */\n#book-one {\n    top: 11%;\n    width: 2.5rem;\n    right: 5%;\n    height: 85%;\n}\n#book-two {\n    top: 10%;\n    width: 2.7rem;\n    left: 4%;\n    height: 86%;\n}\n.style-select-book {\n    position: absolute;\n    background: transparent;\n    cursor: pointer;\n}\n.style-select-book:hover {\n    background: #ff00003d;\n}\n#content-img-books {\n    position: relative;\n    width: 350px; /* tamaño del contenedor = a la imagen de los libros */\n    margin: 0 auto;\n}\n#img-book {\n    width: 100%;\n}\n\n/* Read PDF */\n#pdf-read {\n    position: absolute;\n    background: rgba(0, 0, 255, 0.151);\n    width: 100%;\n    height: 100%;\n    top: 15px;\n}\n#close-pdf-read {\n    position: absolute;\n    background: rgb(0 0 0 / 46%);\n    top: -40px;\n    right: 0;\n    padding: 0.2rem 1rem;\n    cursor: pointer;\n}\ndiv#close-pdf-read:hover {\n    background: #90080861;\n}\n.close-pdf {\n    color: #fff;\n    font-size: 2rem;\n}\n@media (min-width: 30px) and (max-width: 991.98px) {\n.vertical-center {\n        padding: 0;\n}\n.view-iframe-one {\n        min-height: 60vh;\n        contain: content;\n}\n.view-iframe-two {\n        min-height: 40vh;\n        contain: content;\n}\n.card-body-text {\n        padding: 0.8rem;\n}\n.text-title {\n        font-size: 1.5rem;\n}\n.text-subtitle {\n        font-size: 0.8rem;\n        margin: 1rem 0;\n}\n#close-pdf-read {\n        top: 0px;\n}\n.close-pdf {\n        font-size: 1rem;\n}\n#pdf-read {\n        top: 30px;\n}\n#iframe-video {\n        height: 13rem;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#myVideo {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n}\n.card-view {\n    background-color: #fff0;\n    border: 1px solid rgb(0 0 0 / 0%);\n}\n.text-subtitle {\n    color: white;\n    font-size: 1.1rem;\n    text-align: justify;\n    margin: 2rem 0;\n}\n.text-title {\n    color: white;\n    font-size: 2.5rem;\n    font-weight: bold;\n}\n.main-view {\n    /* background-image: url(\"/image/backgroud-image.png\");\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover; */\n    min-height: 100vh;\n}\n.view-iframe-one {\n    position: relative;\n    min-height: 100vh;\n}\n.view-iframe-two {\n    position: relative;\n    min-height: 100vh;\n}\n.card-body-text {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 1.25rem;\n}\n.vertical-center {\n    margin: 0;\n    padding: 1rem;\n    width: 100%;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n}\n.view-body {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 0.5rem !important;\n}\n.content-info {\n    /* position: relative; */\n}\n#iframe-video {\n    width: 100%;\n    height: 22rem;\n}\n\n/* style for books */\n#book-one {\n    top: 11%;\n    width: 2.5rem;\n    right: 5%;\n    height: 85%;\n}\n#book-two {\n    top: 10%;\n    width: 2.7rem;\n    left: 4%;\n    height: 86%;\n}\n.style-select-book {\n    position: absolute;\n    background: transparent;\n    cursor: pointer;\n}\n.style-select-book:hover {\n    background: #ff00003d;\n}\n#content-img-books {\n    position: relative;\n    width: 350px; /* tamaño del contenedor = a la imagen de los libros */\n    margin: 0 auto;\n}\n#img-book {\n    width: 100%;\n}\n\n/* Read PDF */\n#pdf-read {\n    position: absolute;\n    background: rgba(0, 0, 255, 0.151);\n    width: 100%;\n    height: 100%;\n    top: 15px;\n}\n#close-pdf-read {\n    position: absolute;\n    background: rgb(0 0 0 / 46%);\n    top: -40px;\n    right: 0;\n    padding: 0.2rem 1rem;\n    cursor: pointer;\n}\ndiv#close-pdf-read:hover {\n    background: #90080861;\n}\n.close-pdf {\n    color: #fff;\n    font-size: 2rem;\n}\n\n/* Animaciones */\n/* .animate__animated {\n    -webkit-animation-duration: 2s;\n    animation-duration: 2s;\n    -webkit-animation-duration: var(--animate-duration);\n    animation-duration: var(--animate-duration);\n    -webkit-animation-fill-mode: both;\n    animation-fill-mode: both;\n} */\n@media (min-width: 30px) and (max-width: 991.98px) {\n.vertical-center {\n        padding: 0;\n}\n.view-iframe-one {\n        min-height: 60vh;\n        contain: content;\n}\n.view-iframe-two {\n        min-height: 40vh;\n        contain: content;\n}\n.card-body-text {\n        padding: 0.8rem;\n}\n.text-title {\n        font-size: 1.5rem;\n}\n.text-subtitle {\n        font-size: 0.8rem;\n        margin: 1rem 0;\n}\n#close-pdf-read {\n        top: 0px;\n}\n.close-pdf {\n        font-size: 1rem;\n}\n#pdf-read {\n        top: 30px;\n}\n#iframe-video {\n        height: 13rem;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -37783,19 +37783,33 @@ var render = function() {
             _c("div", { staticClass: "vertical-center" }, [
               _c("div", { staticClass: "card card-view" }, [
                 _c("div", { staticClass: "card-body-text text-center" }, [
-                  _c("h1", { staticClass: "text-title" }, [
-                    _vm._v("Los mejores libros para hoy")
-                  ]),
+                  _c(
+                    "h1",
+                    {
+                      staticClass:
+                        "text-title animate__animated animate__backInDown animate__slow"
+                    },
+                    [_vm._v("Los mejores libros para hoy")]
+                  ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "text-subtitle" }, [
-                    _vm._v(
-                      "\n                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.\n                                "
-                    )
-                  ]),
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "text-subtitle animate__animated animate__jackInTheBox animate__slower"
+                    },
+                    [
+                      _vm._v(
+                        "\n                                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.\n                                "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("div", { staticClass: "content-info" }, [
                     _c("div", { attrs: { id: "content-img-books" } }, [
                       _c("img", {
+                        staticClass:
+                          "animate__animated animate__zoomIn animate__slower",
                         attrs: {
                           id: "img-book",
                           src: "/image/books-list.png",
@@ -37862,23 +37876,30 @@ var render = function() {
         _c("div", { staticClass: "col-sm-12 col-md-12 col-lg-6" }, [
           _c("div", { staticClass: "view-iframe-two" }, [
             _c("div", { staticClass: "vertical-center" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "view-body" }, [
-                  _c("iframe", {
-                    attrs: {
-                      id: "iframe-video",
-                      width: "",
-                      height: "",
-                      src: _vm.urlTransmision,
-                      title: "YouTube video player",
-                      frameborder: "0",
-                      allow:
-                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-                      allowfullscreen: ""
-                    }
-                  })
-                ])
-              ])
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "card animate__animated animate__slideInRight animate__slower"
+                },
+                [
+                  _c("div", { staticClass: "view-body" }, [
+                    _c("iframe", {
+                      attrs: {
+                        id: "iframe-video",
+                        width: "",
+                        height: "",
+                        src: _vm.urlTransmision,
+                        title: "YouTube video player",
+                        frameborder: "0",
+                        allow:
+                          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                        allowfullscreen: ""
+                      }
+                    })
+                  ])
+                ]
+              )
             ])
           ])
         ])

@@ -4,8 +4,8 @@
 
     <form id="logout" method="POST" action="{{ route('logout') }}">
         @csrf
-        <button class="dropdown-item" href="page-auth-login-v2.html">
-            <i class="mr-50" data-feather="power"></i>
+        <button class="dropdown-item" href="#">
+            <i id="logout-icon" class="mr-50" data-feather="power"></i>
             Cerrar Sesión
         </button>
     </form>
@@ -20,6 +20,14 @@
             position: fixed;
             z-index: 777;
             right: 0;
+        }
+        .dropdown-item {
+            padding: 0.25rem 1rem;
+            font-weight: 500;
+        }
+        svg#logout-icon {
+            margin-top: -3px;
+            margin-right: 3px;
         }
     </style>
 @endpush
