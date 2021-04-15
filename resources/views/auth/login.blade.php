@@ -36,7 +36,6 @@
     <div class="guani-content background-auth content">
         <div class="content-overlay"></div>
         <div class="content-wrapper">
-
             <div class="content-body">
                 <div class="auth-wrapper auth-v1 px-2">
                     <div class="auth-inner py-2">

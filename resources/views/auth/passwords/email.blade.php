@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/components.min.css">
 
     <!-- BEGIN: Page CSS-->
-    <<link rel="stylesheet" type="text/css" href="/app-assets/css/vertical-menu.min.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/vertical-menu.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/form-validation.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/page-auth.css">
     <!-- END: Page CSS-->
@@ -40,8 +40,6 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
             <div class="content-body">
                 <div class="auth-wrapper auth-v1 px-2">
                     <div class="auth-inner py-2">
