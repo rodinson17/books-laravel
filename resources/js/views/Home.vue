@@ -15,12 +15,64 @@
                                     <p class="text-subtitle animate__animated animate__jackInTheBox animate__slower">
                                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
                                     </p>
+
                                     <div>
-                                        <div id="content-img-books">
+                                        <!-- <div id="content-img-books"> -->
+                                            <splide :options="options"
+                                                has-slider-wrapper>
+
+                                                <splide-slide v-for="slide in slides" :key="slide.src"><!-- @click="click(slide)" -->
+
+                                                    <vs-card type="2">
+                                                        <template #title>
+                                                            <h3>Pot with a plant</h3>
+                                                        </template>
+                                                        <template #img>
+                                                            <img :src="slide.src" alt="slide.alt">
+                                                        </template>
+                                                        <template #text>
+                                                            <p>
+                                                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                                            </p>
+                                                        </template>
+                                                    </vs-card>
+
+                                                    <!-- <div @click="click(slide)" class="card border-0 text-white">
+                                                        <img class="card-img" :src="slide.src" alt="slide.alt">
+                                                        <div class="card-img-overlay bg-overlay">
+                                                        <h4 class="card-title text-white">Card title</h4>
+                                                        <p class="card-text">
+                                                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is
+                                                            a little bit longer.
+                                                        </p>
+                                                        <p class="card-text">
+                                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                                        </p>
+                                                        </div>
+                                                    </div>      -->
+                                                </splide-slide>
+                                                <!-- <vs-tooltip>
+                                                    <vs-button flat>
+                                                    Do hover here
+                                                    </vs-button>
+                                                    <template #tooltip>
+                                                    This is a beautiful button
+                                                    </template>
+                                                </vs-tooltip> -->
+                                                <!-- <splide-slide v-for="slide in slides" :key="slide.src">
+                                                    <div class="splide__slide__container">
+                                                        <img :src="slide.src" alt="slide.alt">
+                                                    </div>
+                                                    <p>Lorem ipsum dolor sit amet, ad laudem maluisset molestiae ius. </p>
+                                                </splide-slide> -->
+
+                                            </splide>
+                                        <!-- </div> -->
+                                        <!-- <div id="content-img-books">
                                             <img id="img-book" class="animate__animated animate__zoomIn animate__slower" src="/image/books-list.png" alt="books" width="">
                                             <div @click="bookOne(listBook[0])" id="book-one" class="style-select-book"></div>
                                             <div @click="bookOne(listBook[1])" id="book-two" class="style-select-book"></div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
 
@@ -66,19 +118,43 @@
 </template>
 
 <script>
+    import { Splide, SplideSlide } from '@splidejs/vue-splide';
+    //import { createSlides } from "../../utils/slides";
+    import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+
     export default {
+        components: {
+            Splide,
+            SplideSlide,
+        },
         data() {
             return {
                 urlTransmision: "https://www.youtube.com/embed/oCJQD93dTC4",
                 urlBook: "/book/PFC_RogerGimeno.pdf",
                 openPDF: false,
                 listBook: [],
+                options: {
+                    //type        : 'loop',
+                    rewind      : true,
+                    perPage     : 3,
+                    perMove     : 1,
+                    gap         : '1rem',
+                    //height      : '12rem',
+                    //cover       : true,
+                    autoplay    : true,
+                    pauseOnHover: true,
+                    arrows      : 'slider',
+                },
+                slides: [],
             }
         },
         methods: {
             bookOne( url = '' ) {
                 this.openPDF = !this.openPDF;
                 this.urlBook = url;
+            },
+            click(data) {
+                console.log('esta es: ', data)
             }
         },
         created() {
@@ -87,11 +163,24 @@
                 '/book/PFC_RogerGimeno.pdf',
                 '/book/reconocimiento en tiempo real.pdf',
             ]
+
+            this.slides = [
+                {alt: 'hola1', src:"https://picsum.photos/id/0/200/300"},
+                {alt: 'hola2', src:"https://picsum.photos/id/1/200/300"},
+                {alt: 'hola3', src:"https://picsum.photos/id/10/200/300"},
+                {alt: 'hola4', src:"https://picsum.photos/id/100/200/300"},
+                {alt: 'hola5', src:"https://picsum.photos/id/1000/200/300"},
+                {alt: 'hola6', src:"https://picsum.photos/id/1001/200/300"},
+                {alt: 'hola7', src:"https://picsum.photos/id/1002/200/300"},
+            ]
         }
     }
 </script>
 
-<style>
+<!-- <style scoped lang="scss"> -->
+<style scoped >
+    /* Styles silder */
+
     /* Style backgroud video */
     #myVideo {
         position: fixed;
@@ -191,7 +280,7 @@
     div#close-pdf-read:hover {
         background: #90080861;
     }
-    
+
 
     /* Estilos compartidos */
     .vertical-center {

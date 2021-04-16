@@ -8,6 +8,21 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+
+/* Register vuesax */
+import Vue from 'vue';
+import Vuesax from 'vuesax';
+
+import 'vuesax/dist/vuesax.css'; //Vuesax styles
+Vue.use(Vuesax);
+
+
+/* Registration vue-splide */
+//import App from './App';
+import VueSplide from '@splidejs/vue-splide';
+
+Vue.use( VueSplide );
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
