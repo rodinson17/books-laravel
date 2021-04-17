@@ -7971,30 +7971,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
- //import { createSlides } from "../../utils/slides";
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -8004,8 +7980,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      urlTransmision: "https://www.youtube.com/embed/oCJQD93dTC4",
-      urlBook: "/book/PFC_RogerGimeno.pdf",
+      //urlTransmision: "https://www.youtube.com/embed/oCJQD93dTC4",
+      urlTransmision: "https://www.youtube.com/embed/nRxMQTjl8Uc",
+      urlBook: "",
       openPDF: false,
       listBook: [],
       options: {
@@ -8025,38 +8002,59 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     bookOne: function bookOne() {
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
       this.openPDF = !this.openPDF;
-      this.urlBook = url;
     },
     click: function click(data) {
-      console.log('esta es: ', data);
+      //console.log('esta es: ', data)
+      this.openPDF = !this.openPDF;
+      this.urlBook = data.url;
     }
   },
   created: function created() {
     /* Lista de libros */
     this.listBook = ['/book/PFC_RogerGimeno.pdf', '/book/reconocimiento en tiempo real.pdf'];
     this.slides = [{
+      title: 'book No. 1',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
       alt: 'hola1',
-      src: "https://picsum.photos/id/0/200/300"
+      url: '/book/PFC_RogerGimeno.pdf',
+      src: "/image/books/book-1.jpg"
     }, {
+      title: 'book No. 2',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
       alt: 'hola2',
-      src: "https://picsum.photos/id/1/200/300"
+      url: '/book/reconocimiento en tiempo real.pdf',
+      src: "/image/books/book-2.png"
     }, {
+      title: 'book No. 3',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
       alt: 'hola3',
-      src: "https://picsum.photos/id/10/200/300"
+      url: '/book/PFC_RogerGimeno.pdf',
+      src: "/image/books/book-3.jpg"
     }, {
+      title: 'book No. 4',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
       alt: 'hola4',
-      src: "https://picsum.photos/id/100/200/300"
+      url: '/book/reconocimiento en tiempo real.pdf',
+      src: "/image/books/book-4.jpg"
     }, {
+      title: 'book No. 5',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
       alt: 'hola5',
-      src: "https://picsum.photos/id/1000/200/300"
+      url: '/book/PFC_RogerGimeno.pdf',
+      src: "/image/books/book-5.jpg"
     }, {
+      title: 'book No. 6',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
       alt: 'hola6',
-      src: "https://picsum.photos/id/1001/200/300"
+      url: '/book/reconocimiento en tiempo real.pdf',
+      src: "/image/books/book-6.jpg"
     }, {
+      title: 'book No. 7',
+      description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
       alt: 'hola7',
-      src: "https://picsum.photos/id/1002/200/300"
+      url: '/book/PFC_RogerGimeno.pdf',
+      src: "/image/books/book-7.png"
     }];
   }
 });
@@ -12671,7 +12669,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Styles silder */\n\n/* Style backgroud video */\n#myVideo[data-v-63cd6604] {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n}\n\n\n/* Style content */\n.main-view[data-v-63cd6604] {\n    /* background-image: url(\"/image/backgroud-image.png\");\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover; */\n    min-height: 100vh;\n}\n\n\n/* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n    position: relative;\n    min-height: 100vh;\n}\n.card-view[data-v-63cd6604] {\n    background-color: #fff0;\n    border: 1px solid rgb(0 0 0 / 0%);\n}\n.card-body-text[data-v-63cd6604] {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 1.25rem;\n}\n.text-title[data-v-63cd6604] {\n    color: white;\n    font-size: 2.5rem;\n    font-weight: bold;\n}\n.text-subtitle[data-v-63cd6604] {\n    color: white;\n    font-size: 1.1rem;\n    text-align: justify;\n    margin: 2rem 0;\n}\n#content-img-books[data-v-63cd6604] {\n    position: relative;\n    width: 350px; /* tamaño del contenedor = a la imagen de los libros */\n    margin: 0 auto;\n}\n#img-book[data-v-63cd6604] {\n    width: 100%;\n}\n\n/* style for books */\n#book-one[data-v-63cd6604] {\n    top: 11%;\n    width: 2.5rem;\n    right: 5%;\n    height: 85%;\n}\n#book-two[data-v-63cd6604] {\n    top: 10%;\n    width: 2.7rem;\n    left: 4%;\n    height: 86%;\n}\n.style-select-book[data-v-63cd6604] {\n    position: absolute;\n    background: transparent;\n    cursor: pointer;\n}\n.style-select-book[data-v-63cd6604]:hover {\n    background: #ff00003d;\n}\n\n/* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n    position: absolute;\n    background: rgb(0 0 0 / 46%);\n    top: -40px;\n    right: 0;\n    padding: 0.2rem 1rem;\n    cursor: pointer;\n}\n.close-pdf[data-v-63cd6604] {\n    color: #fff;\n    font-size: 2rem;\n}\n#pdf-read[data-v-63cd6604] {\n    position: absolute;\n    background: rgba(0, 0, 255, 0.151);\n    width: 100%;\n    height: 100%;\n    top: 15px;\n}\ndiv#close-pdf-read[data-v-63cd6604]:hover {\n    background: #90080861;\n}\n\n\n/* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n    margin: 0;\n    padding: 1rem;\n    width: 100%;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n}\n\n\n/* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n    position: relative;\n    min-height: 100vh;\n}\n.view-body[data-v-63cd6604] {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 0.5rem !important;\n}\n#iframe-video[data-v-63cd6604] {\n    width: 100%;\n    height: 22rem;\n}\n\n\n/* Styles responsive */\n@media (min-width: 30px) and (max-width: 991.98px) {\n\n    /* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n        min-height: 60vh;\n        contain: content;\n}\n.card-body-text[data-v-63cd6604] {\n        padding: 0.8rem;\n}\n.text-title[data-v-63cd6604] {\n        font-size: 1.5rem;\n}\n.text-subtitle[data-v-63cd6604] {\n        font-size: 0.8rem;\n        margin: 1rem 0;\n}\n\n    /* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n        top: 0px;\n}\n.close-pdf[data-v-63cd6604] {\n        font-size: 1rem;\n}\n#pdf-read[data-v-63cd6604] {\n        top: 30px;\n}\n\n\n    /* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n        padding: 0;\n}\n\n\n    /* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n        min-height: 40vh;\n        contain: content;\n}\n#iframe-video[data-v-63cd6604] {\n        height: 13rem;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* Styles silder */\n\n/* Style backgroud video */\n/* #myVideo {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n} */\n.vs-card__img img[data-v-63cd6604] {\n    height: 250px;\n}\n\n\n/* Style content url(\"/image/buckled-book.jpg\");*/\n.main-view[data-v-63cd6604] {\n    background-image: url(\"/image/buckled-book.png\");\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: cover;\n    min-height: 100vh;\n}\n\n\n/* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n    position: relative;\n    min-height: 100vh;\n}\n.card-view[data-v-63cd6604] {\n    background-color: #fff0;\n    border: 1px solid rgb(0 0 0 / 0%);\n}\n.card-body-text[data-v-63cd6604] {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 1.25rem;\n}\n.text-title[data-v-63cd6604] {\n    color: white;\n    font-size: 2.5rem;\n    font-weight: bold;\n}\n.text-subtitle[data-v-63cd6604] {\n    color: white;\n    font-size: 1.1rem;\n    text-align: justify;\n    margin: 2rem 0;\n}\n#content-img-books[data-v-63cd6604] {\n    position: relative;\n    width: 350px; /* tamaño del contenedor = a la imagen de los libros */\n    margin: 0 auto;\n}\n#img-book[data-v-63cd6604] {\n    width: 100%;\n}\n\n/* style for books */\n#book-one[data-v-63cd6604] {\n    top: 11%;\n    width: 2.5rem;\n    right: 5%;\n    height: 85%;\n}\n#book-two[data-v-63cd6604] {\n    top: 10%;\n    width: 2.7rem;\n    left: 4%;\n    height: 86%;\n}\n.style-select-book[data-v-63cd6604] {\n    position: absolute;\n    background: transparent;\n    cursor: pointer;\n}\n.style-select-book[data-v-63cd6604]:hover {\n    background: #ff00003d;\n}\n\n/* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n    position: absolute;\n    background: rgb(0 0 0 / 46%);\n    top: -40px;\n    right: 0;\n    padding: 0.2rem 1rem;\n    cursor: pointer;\n}\n.close-pdf[data-v-63cd6604] {\n    color: #fff;\n    font-size: 2rem;\n}\n#pdf-read[data-v-63cd6604] {\n    position: absolute;\n    background: rgba(0, 0, 255, 0.151);\n    width: 100%;\n    height: 100%;\n    top: 15px;\n}\ndiv#close-pdf-read[data-v-63cd6604]:hover {\n    background: #90080861;\n}\n\n\n/* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n    margin: 0;\n    padding: 1rem;\n    width: 100%;\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n}\n\n\n/* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n    position: relative;\n    min-height: 100vh;\n}\n.view-body[data-v-63cd6604] {\n    flex: 1 1 auto;\n    min-height: 1px;\n    padding: 0.5rem !important;\n}\n#iframe-video[data-v-63cd6604] {\n    width: 100%;\n    height: 22rem;\n}\n\n\n/* Styles responsive */\n@media (min-width: 30px) and (max-width: 991.98px) {\n\n    /* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n        min-height: 60vh;\n        contain: content;\n}\n.card-body-text[data-v-63cd6604] {\n        padding: 0.8rem;\n}\n.text-title[data-v-63cd6604] {\n        font-size: 1.5rem;\n}\n.text-subtitle[data-v-63cd6604] {\n        font-size: 0.8rem;\n        margin: 1rem 0;\n}\n\n    /* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n        top: 0px;\n}\n.close-pdf[data-v-63cd6604] {\n        font-size: 1rem;\n}\n#pdf-read[data-v-63cd6604] {\n        top: 30px;\n}\n\n\n    /* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n        padding: 0;\n}\n\n\n    /* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n        min-height: 40vh;\n        contain: content;\n}\n#iframe-video[data-v-63cd6604] {\n        height: 13rem;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -44307,19 +44305,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "video",
-      {
-        attrs: { autoplay: "", muted: "", loop: "", id: "myVideo" },
-        domProps: { muted: true }
-      },
-      [
-        _c("source", {
-          attrs: { src: "/video/library-rigth.mp4", type: "video/mp4" }
-        })
-      ]
-    ),
-    _vm._v(" "),
     _c("div", { staticClass: "container-fluid main-view" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-sm-12 col-md-12 col-lg-6" }, [
@@ -44340,7 +44325,7 @@ var render = function() {
                     "p",
                     {
                       staticClass:
-                        "text-subtitle animate__animated animate__jackInTheBox animate__slower"
+                        "text-subtitle animate__animated animate__backInLeft animate__slower"
                     },
                     [
                       _vm._v(
@@ -44351,6 +44336,10 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "div",
+                    {
+                      staticClass:
+                        "animate__animated animate__zoomIn animate__slower"
+                    },
                     [
                       _c(
                         "splide",
@@ -44365,51 +44354,93 @@ var render = function() {
                             "splide-slide",
                             { key: slide.src },
                             [
-                              _c("vs-card", {
-                                attrs: { type: "2" },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "title",
-                                      fn: function() {
-                                        return [
-                                          _c("h3", [_vm._v("Pot with a plant")])
-                                        ]
-                                      },
-                                      proxy: true
-                                    },
-                                    {
-                                      key: "img",
-                                      fn: function() {
-                                        return [
-                                          _c("img", {
-                                            attrs: {
-                                              src: slide.src,
-                                              alt: "slide.alt"
-                                            }
-                                          })
-                                        ]
-                                      },
-                                      proxy: true
-                                    },
-                                    {
-                                      key: "text",
-                                      fn: function() {
-                                        return [
-                                          _c("p", [
-                                            _vm._v(
-                                              "\n                                                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.\n                                                        "
+                              _c(
+                                "vs-tooltip",
+                                {
+                                  attrs: { shadow: "" },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "tooltip",
+                                        fn: function() {
+                                          return [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "content-tooltip"
+                                              },
+                                              [
+                                                _c("h4", [
+                                                  _vm._v(_vm._s(slide.title))
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "p",
+                                                  {
+                                                    staticStyle: {
+                                                      "text-align": "justify"
+                                                    }
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(slide.description)
+                                                    )
+                                                  ]
+                                                )
+                                              ]
                                             )
-                                          ])
-                                        ]
-                                      },
-                                      proxy: true
-                                    }
-                                  ],
-                                  null,
-                                  true
-                                )
-                              })
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                },
+                                [
+                                  _c("vs-card", {
+                                    attrs: { type: "2" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.click(slide)
+                                      }
+                                    },
+                                    scopedSlots: _vm._u(
+                                      [
+                                        {
+                                          key: "title",
+                                          fn: function() {
+                                            return [
+                                              _c("h3", [
+                                                _vm._v(_vm._s(slide.title))
+                                              ])
+                                            ]
+                                          },
+                                          proxy: true
+                                        },
+                                        {
+                                          key: "img",
+                                          fn: function() {
+                                            return [
+                                              _c("img", {
+                                                attrs: {
+                                                  src: slide.src,
+                                                  alt: "slide.alt"
+                                                }
+                                              })
+                                            ]
+                                          },
+                                          proxy: true
+                                        }
+                                      ],
+                                      null,
+                                      true
+                                    )
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           )

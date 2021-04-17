@@ -1,8 +1,8 @@
 <template>
     <div>
-        <video autoplay muted loop id="myVideo">
+       <!--  <video autoplay muted loop id="myVideo">
             <source src="/video/library-rigth.mp4" type="video/mp4">
-        </video>
+        </video> -->
 
         <div class="container-fluid main-view">
             <div class="row justify-content-center">
@@ -12,60 +12,37 @@
                             <div class="card card-view">
                                 <div class="card-body-text text-center">
                                     <h1 class="text-title animate__animated animate__backInDown animate__slow">Los mejores libros para hoy</h1>
-                                    <p class="text-subtitle animate__animated animate__jackInTheBox animate__slower">
+                                    <p class="text-subtitle animate__animated animate__backInLeft animate__slower">
                                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
                                     </p>
 
-                                    <div>
+                                    <div class="animate__animated animate__zoomIn animate__slower">
                                         <!-- <div id="content-img-books"> -->
                                             <splide :options="options"
                                                 has-slider-wrapper>
 
-                                                <splide-slide v-for="slide in slides" :key="slide.src"><!-- @click="click(slide)" -->
+                                                <splide-slide v-for="slide in slides" :key="slide.src">
+                                                    <vs-tooltip shadow>
+                                                        <vs-card @click="click(slide)" type="2">
+                                                            <template #title>
+                                                                <h3>{{ slide.title }}</h3>
+                                                            </template>
+                                                            <template #img>
+                                                                <img :src="slide.src" alt="slide.alt">
+                                                            </template>
+                                                            <!-- <template #text>
+                                                                <p style="text-align: justify;">{{ slide.title }}</p>
+                                                            </template> -->
+                                                        </vs-card>
 
-                                                    <vs-card type="2">
-                                                        <template #title>
-                                                            <h3>Pot with a plant</h3>
+                                                        <template #tooltip>
+                                                            <div class="content-tooltip">
+                                                                <h4>{{slide.title}}</h4>
+                                                                <p style="text-align: justify;">{{slide.description}}</p>
+                                                            </div>
                                                         </template>
-                                                        <template #img>
-                                                            <img :src="slide.src" alt="slide.alt">
-                                                        </template>
-                                                        <template #text>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                                            </p>
-                                                        </template>
-                                                    </vs-card>
-
-                                                    <!-- <div @click="click(slide)" class="card border-0 text-white">
-                                                        <img class="card-img" :src="slide.src" alt="slide.alt">
-                                                        <div class="card-img-overlay bg-overlay">
-                                                        <h4 class="card-title text-white">Card title</h4>
-                                                        <p class="card-text">
-                                                            This is a wider card with supporting text below as a natural lead-in to additional content. This content is
-                                                            a little bit longer.
-                                                        </p>
-                                                        <p class="card-text">
-                                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                                        </p>
-                                                        </div>
-                                                    </div>      -->
+                                                    </vs-tooltip>
                                                 </splide-slide>
-                                                <!-- <vs-tooltip>
-                                                    <vs-button flat>
-                                                    Do hover here
-                                                    </vs-button>
-                                                    <template #tooltip>
-                                                    This is a beautiful button
-                                                    </template>
-                                                </vs-tooltip> -->
-                                                <!-- <splide-slide v-for="slide in slides" :key="slide.src">
-                                                    <div class="splide__slide__container">
-                                                        <img :src="slide.src" alt="slide.alt">
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, ad laudem maluisset molestiae ius. </p>
-                                                </splide-slide> -->
-
                                             </splide>
                                         <!-- </div> -->
                                         <!-- <div id="content-img-books">
@@ -119,7 +96,6 @@
 
 <script>
     import { Splide, SplideSlide } from '@splidejs/vue-splide';
-    //import { createSlides } from "../../utils/slides";
     import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 
     export default {
@@ -129,8 +105,9 @@
         },
         data() {
             return {
-                urlTransmision: "https://www.youtube.com/embed/oCJQD93dTC4",
-                urlBook: "/book/PFC_RogerGimeno.pdf",
+                //urlTransmision: "https://www.youtube.com/embed/oCJQD93dTC4",
+                urlTransmision: "https://www.youtube.com/embed/nRxMQTjl8Uc",
+                urlBook: "",
                 openPDF: false,
                 listBook: [],
                 options: {
@@ -149,12 +126,13 @@
             }
         },
         methods: {
-            bookOne( url = '' ) {
+            bookOne() {
                 this.openPDF = !this.openPDF;
-                this.urlBook = url;
             },
-            click(data) {
-                console.log('esta es: ', data)
+            click( data ) {
+                //console.log('esta es: ', data)
+                this.openPDF = !this.openPDF;
+                this.urlBook = data.url;
             }
         },
         created() {
@@ -165,13 +143,54 @@
             ]
 
             this.slides = [
-                {alt: 'hola1', src:"https://picsum.photos/id/0/200/300"},
-                {alt: 'hola2', src:"https://picsum.photos/id/1/200/300"},
-                {alt: 'hola3', src:"https://picsum.photos/id/10/200/300"},
-                {alt: 'hola4', src:"https://picsum.photos/id/100/200/300"},
-                {alt: 'hola5', src:"https://picsum.photos/id/1000/200/300"},
-                {alt: 'hola6', src:"https://picsum.photos/id/1001/200/300"},
-                {alt: 'hola7', src:"https://picsum.photos/id/1002/200/300"},
+                {
+                    title: 'book No. 1',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
+                    alt: 'hola1',
+                    url: '/book/PFC_RogerGimeno.pdf',
+                    src:"/image/books/book-1.jpg"
+                },
+                {
+                    title: 'book No. 2',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
+                    alt: 'hola2',
+                    url: '/book/reconocimiento en tiempo real.pdf',
+                    src:"/image/books/book-2.png"
+                },
+                {
+                    title: 'book No. 3',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
+                    alt: 'hola3',
+                    url: '/book/PFC_RogerGimeno.pdf',
+                    src:"/image/books/book-3.jpg"
+                },
+                { title: 'book No. 4',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
+                    alt: 'hola4',
+                    url: '/book/reconocimiento en tiempo real.pdf',
+                    src:"/image/books/book-4.jpg"
+                },
+                {
+                    title: 'book No. 5',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
+                    alt: 'hola5',
+                    url: '/book/PFC_RogerGimeno.pdf',
+                    src:"/image/books/book-5.jpg"
+                },
+                {
+                    title: 'book No. 6',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
+                    alt: 'hola6',
+                    url: '/book/reconocimiento en tiempo real.pdf',
+                    src:"/image/books/book-6.jpg"
+                },
+                {
+                    title: 'book No. 7',
+                    description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
+                    alt: 'hola7',
+                    url: '/book/PFC_RogerGimeno.pdf',
+                    src:"/image/books/book-7.png"
+                },
             ]
         }
     }
@@ -182,21 +201,25 @@
     /* Styles silder */
 
     /* Style backgroud video */
-    #myVideo {
+    /* #myVideo {
         position: fixed;
         right: 0;
         bottom: 0;
         min-width: 100%;
         min-height: 100%;
+    } */
+
+    .vs-card__img img {
+        height: 250px;
     }
 
 
-    /* Style content */
+    /* Style content url("/image/buckled-book.jpg");*/
     .main-view {
-        /* background-image: url("/image/backgroud-image.png");
+        background-image: url("/image/buckled-book.png");
         background-position: center;
         background-repeat: no-repeat;
-        background-size: cover; */
+        background-size: cover;
         min-height: 100vh;
     }
 
