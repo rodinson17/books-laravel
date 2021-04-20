@@ -9,7 +9,7 @@
             Cerrar Sesión
         </button>
     </form>
-    <home></home>
+    <view-home></view-home>
 
 @endsection
 
