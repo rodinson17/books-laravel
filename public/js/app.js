@@ -8432,6 +8432,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -8463,18 +8468,192 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    bookOne: function bookOne() {
+    closeIframeBook: function closeIframeBook() {
       this.openPDF = !this.openPDF;
     },
-    click: function click(data) {
+    clickButtonAnimate: function clickButtonAnimate(data) {
       var _this = this;
 
       this.imgGif = true;
       this.urlBook = data.url;
+      this.initBurstVue();
       setTimeout(function () {
         _this.openPDF = !_this.openPDF;
         _this.imgGif = false;
       }, 2000);
+    },
+    initBurstVue: function initBurstVue() {
+      // ammount to add on each button press
+      var confettiCount = 20;
+      var sequinCount = 10; // "physics" variables
+
+      var gravityConfetti = 0.3;
+      var gravitySequins = 0.55;
+      var dragConfetti = 0.075;
+      var dragSequins = 0.02;
+      var terminalVelocity = 3; // init other global elements
+
+      var button = document.getElementById('button');
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var cx = ctx.canvas.width / 2;
+      var cy = ctx.canvas.height / 2; // add Confetto/Sequin objects to arrays to draw them
+
+      var confetti = [];
+      var sequins = []; // colors, back side is darker for confetti flipping
+
+      var colors = [{
+        front: '#7b5cff',
+        back: '#6245e0'
+      }, // Purple
+      {
+        front: '#b3c7ff',
+        back: '#8fa5e5'
+      }, // Light Blue
+      {
+        front: '#5c86ff',
+        back: '#345dd1'
+      } // Darker Blue
+      ]; // helper function to pick a random number within a range
+
+      var randomRange = function randomRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }; // helper function to get initial velocities for confetti
+      // this weighted spread helps the confetti look more realistic
+
+
+      var initConfettoVelocity = function initConfettoVelocity(xRange, yRange) {
+        var x = randomRange(xRange[0], xRange[1]);
+        var range = yRange[1] - yRange[0] + 1;
+        var y = yRange[1] - Math.abs(randomRange(0, range) + randomRange(0, range) - range);
+
+        if (y >= yRange[1] - 1) {
+          // Occasional confetto goes higher than the max
+          y += Math.random() < .25 ? randomRange(1, 3) : 0;
+        }
+
+        return {
+          x: x,
+          y: -y
+        };
+      }; // Confetto Class
+
+
+      function Confetto() {
+        this.randomModifier = randomRange(0, 99);
+        this.color = colors[Math.floor(randomRange(0, colors.length))];
+        this.dimensions = {
+          //x: randomRange(5, 9),
+          x: randomRange(7, 9),
+          //y: randomRange(8, 15),
+          y: randomRange(11, 15)
+        };
+        this.position = {
+          x: randomRange(canvas.width / 2 - button.offsetWidth / 4, canvas.width / 2 + button.offsetWidth / 4),
+          y: randomRange(canvas.height / 2 + button.offsetHeight / 2 + 8, canvas.height / 2 + 1.5 * button.offsetHeight - 8)
+        };
+        this.rotation = randomRange(0, 2 * Math.PI);
+        this.scale = {
+          x: 1,
+          y: 1
+        };
+        this.velocity = initConfettoVelocity([-9, 9], [6, 11]);
+      }
+
+      Confetto.prototype.update = function () {
+        // apply forces to velocity
+        this.velocity.x -= this.velocity.x * dragConfetti;
+        this.velocity.y = Math.min(this.velocity.y + gravityConfetti, terminalVelocity);
+        this.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random(); // set position
+
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y; // spin confetto by scaling y and set the color, .09 just slows cosine frequency
+
+        this.scale.y = Math.cos((this.position.y + this.randomModifier) * 0.09);
+      }; // Sequin Class
+
+
+      function Sequin() {
+        this.color = colors[Math.floor(randomRange(0, colors.length))].back, this.radius = randomRange(1, 2), this.position = {
+          x: randomRange(canvas.width / 2 - button.offsetWidth / 3, canvas.width / 2 + button.offsetWidth / 3),
+          y: randomRange(canvas.height / 2 + button.offsetHeight / 2 + 8, canvas.height / 2 + 1.5 * button.offsetHeight - 8)
+        }, this.velocity = {
+          x: randomRange(-6, 6),
+          y: randomRange(-8, -12)
+        };
+      }
+
+      Sequin.prototype.update = function () {
+        // apply forces to velocity
+        this.velocity.x -= this.velocity.x * dragSequins;
+        this.velocity.y = this.velocity.y + gravitySequins; // set position
+
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+      };
+
+      for (var i = 0; i < confettiCount; i++) {
+        confetti.push(new Confetto());
+      }
+
+      for (var _i = 0; _i < sequinCount; _i++) {
+        sequins.push(new Sequin());
+      }
+
+      var render = function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confetti.forEach(function (confetto, index) {
+          var width = confetto.dimensions.x * confetto.scale.x;
+          var height = confetto.dimensions.y * confetto.scale.y; // move canvas to position and rotate
+
+          ctx.translate(confetto.position.x, confetto.position.y);
+          ctx.rotate(confetto.rotation); // update confetto "physics" values
+
+          confetto.update(); // get front or back fill color
+
+          ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back; // draw confetto
+
+          ctx.fillRect(-width / 2, -height / 2, width, height); // reset transform matrix
+
+          ctx.setTransform(1, 0, 0, 1, 0, 0); // clear rectangle where button cuts off
+
+          if (confetto.velocity.y < 0) {
+            ctx.clearRect(canvas.width / 2 - button.offsetWidth / 2, canvas.height / 2 + button.offsetHeight / 2, button.offsetWidth, button.offsetHeight);
+          }
+        });
+        sequins.forEach(function (sequin, index) {
+          // move canvas to position
+          ctx.translate(sequin.position.x, sequin.position.y); // update sequin "physics" values
+
+          sequin.update(); // set the color
+
+          ctx.fillStyle = sequin.color; // draw sequin
+
+          ctx.beginPath();
+          ctx.arc(0, 0, sequin.radius, 0, 2 * Math.PI);
+          ctx.fill(); // reset transform matrix
+
+          ctx.setTransform(1, 0, 0, 1, 0, 0); // clear rectangle where button cuts off
+
+          if (sequin.velocity.y < 0) {
+            ctx.clearRect(canvas.width / 2 - button.offsetWidth / 2, canvas.height / 2 + button.offsetHeight / 2, button.offsetWidth, button.offsetHeight);
+          }
+        }); // remove confetti and sequins that fall off the screen
+        // must be done in seperate loops to avoid noticeable flickering
+
+        confetti.forEach(function (confetto, index) {
+          if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+        });
+        sequins.forEach(function (sequin, index) {
+          if (sequin.position.y >= canvas.height) sequins.splice(index, 1);
+        });
+        window.requestAnimationFrame(render);
+      }; // kick off the render loop
+
+
+      render();
     }
   },
   created: function created() {
@@ -13304,7 +13483,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* Start https://www.cursors-4u.com */\n*[data-v-63cd6604] {\n  cursor: url(https://cur.cursors-4u.net/cursors/cur-2/cur196.ani), url(https://cur.cursors-4u.net/cursors/cur-2/cur196.png), auto !important;\n}\n\n/* End https://www.cursors-4u.com */\n/* Style backgroud video */\n/* #myVideo {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n} */\n.vs-card__img img[data-v-63cd6604] {\n  height: 250px;\n}\n\n/* Style content url(\"/image/buckled-book.jpg\");*/\n.main-view[data-v-63cd6604] {\n  background-image: url(\"/image/buckled-book.png\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  min-height: 100vh;\n}\n\n/* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n  position: relative;\n  min-height: 100vh;\n  z-index: 99;\n}\n.card-view[data-v-63cd6604] {\n  background-color: #fff0;\n  border: 1px solid rgba(0, 0, 0, 0);\n}\n.card-body-text[data-v-63cd6604] {\n  flex: 1 1 auto;\n  min-height: 1px;\n  padding: 1.25rem;\n}\n.text-title[data-v-63cd6604] {\n  color: white;\n  font-size: 2.5rem;\n  font-weight: bold;\n}\n.text-subtitle[data-v-63cd6604] {\n  color: white;\n  font-size: 1.1rem;\n  text-align: justify;\n  margin: 2rem 0;\n}\n\n/* style for books */\n.style-select-book[data-v-63cd6604] {\n  position: absolute;\n  background: transparent;\n  cursor: pointer;\n}\n.style-select-book[data-v-63cd6604]:hover {\n  background: #ff00003d;\n}\n\n/* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n  position: absolute;\n  background: rgba(0, 0, 0, 0.46);\n  top: -40px;\n  right: 0;\n  padding: 0.2rem 1rem;\n  cursor: pointer;\n}\n.close-pdf[data-v-63cd6604] {\n  color: #fff;\n  font-size: 2rem;\n}\n#pdf-read[data-v-63cd6604] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 15px;\n}\ndiv#close-pdf-read[data-v-63cd6604]:hover {\n  background: #90080861;\n}\n#image-gif[data-v-63cd6604] {\n  position: absolute;\n  top: 40%;\n  left: 25%;\n}\n\n/* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n  margin: 0;\n  padding: 1rem;\n  width: 100%;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n/* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n  position: relative;\n  min-height: 100vh;\n  z-index: 99;\n}\n.view-body[data-v-63cd6604] {\n  flex: 1 1 auto;\n  min-height: 1px;\n  padding: 0.5rem !important;\n}\n#iframe-video[data-v-63cd6604] {\n  width: 100%;\n  height: 22rem;\n}\n\n/* Styles responsive */\n@media (min-width: 30px) and (max-width: 991.98px) {\n.vs-card__img img[data-v-63cd6604] {\n    height: 180px;\n}\n\n  /* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n    min-height: 60vh;\n    contain: content;\n}\n.card-body-text[data-v-63cd6604] {\n    padding: 0.8rem;\n}\n.text-title[data-v-63cd6604] {\n    font-size: 1.5rem;\n}\n.text-subtitle[data-v-63cd6604] {\n    font-size: 0.8rem;\n    margin: 1rem 0;\n}\n\n  /* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n    top: 0px;\n}\n.close-pdf[data-v-63cd6604] {\n    font-size: 1rem;\n}\n#pdf-read[data-v-63cd6604] {\n    top: 30px;\n}\n\n  /* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n    padding: 0;\n}\n\n  /* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n    min-height: 40vh;\n    contain: content;\n}\n#iframe-video[data-v-63cd6604] {\n    height: 13rem;\n}\n}\n/* Styles for large screens  */\n@media (min-width: 1400px) {\n.main-card .vs-card__img[data-v-63cd6604] {\n    max-height: 350px !important;\n}\n\n  /* .vs-card__img img {\n      height: 350px;\n  } */\n}\n/* Aves volando */\n.container-ave[data-v-63cd6604] {\n  z-index: 1;\n  position: absolute;\n  width: 98%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 8rem;\n}\n.bird[data-v-63cd6604] {\n  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);\n  background-size: auto 100%;\n  width: 88px;\n  height: 125px;\n  will-change: background-position;\n  -webkit-animation-name: fly-cycle-data-v-63cd6604;\n          animation-name: fly-cycle-data-v-63cd6604;\n  -webkit-animation-timing-function: steps(10);\n          animation-timing-function: steps(10);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.bird--one[data-v-63cd6604] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.bird--two[data-v-63cd6604] {\n  -webkit-animation-duration: 0.9s;\n          animation-duration: 0.9s;\n  -webkit-animation-delay: -0.75s;\n          animation-delay: -0.75s;\n}\n.bird--three[data-v-63cd6604] {\n  -webkit-animation-duration: 1.25s;\n          animation-duration: 1.25s;\n  -webkit-animation-delay: -0.25s;\n          animation-delay: -0.25s;\n}\n.bird--four[data-v-63cd6604] {\n  -webkit-animation-duration: 1.1s;\n          animation-duration: 1.1s;\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.bird-container[data-v-63cd6604] {\n  position: absolute;\n  top: -10%;\n  left: -10%;\n  transform: scale(0) translateX(-10vw);\n  will-change: transform;\n  -webkit-animation-name: fly-right-one-data-v-63cd6604;\n          animation-name: fly-right-one-data-v-63cd6604;\n  -webkit-animation-timing-function: linear;\n          animation-timing-function: linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.bird-container--one[data-v-63cd6604] {\n  -webkit-animation-duration: 15s;\n          animation-duration: 15s;\n  -webkit-animation-delay: 0;\n          animation-delay: 0;\n}\n.bird-container--two[data-v-63cd6604] {\n  -webkit-animation-duration: 16s;\n          animation-duration: 16s;\n  -webkit-animation-delay: 1s;\n          animation-delay: 1s;\n}\n.bird-container--three[data-v-63cd6604] {\n  -webkit-animation-duration: 14.6s;\n          animation-duration: 14.6s;\n  -webkit-animation-delay: 9.5s;\n          animation-delay: 9.5s;\n}\n.bird-container--four[data-v-63cd6604] {\n  -webkit-animation-duration: 16s;\n          animation-duration: 16s;\n  -webkit-animation-delay: 10.25s;\n          animation-delay: 10.25s;\n}\n@-webkit-keyframes fly-cycle-data-v-63cd6604 {\n100% {\n    background-position: -900px 0;\n}\n}\n@keyframes fly-cycle-data-v-63cd6604 {\n100% {\n    background-position: -900px 0;\n}\n}\n@-webkit-keyframes fly-right-one-data-v-63cd6604 {\n0% {\n    transform: scale(0.3) translateX(-10vw);\n}\n10% {\n    transform: translateY(2vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(0vh) translateX(30vw) scale(0.5);\n}\n30% {\n    transform: translateY(4vh) translateX(50vw) scale(0.6);\n}\n40% {\n    transform: translateY(2vh) translateX(70vw) scale(0.6);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.6);\n}\n60% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n}\n@keyframes fly-right-one-data-v-63cd6604 {\n0% {\n    transform: scale(0.3) translateX(-10vw);\n}\n10% {\n    transform: translateY(2vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(0vh) translateX(30vw) scale(0.5);\n}\n30% {\n    transform: translateY(4vh) translateX(50vw) scale(0.6);\n}\n40% {\n    transform: translateY(2vh) translateX(70vw) scale(0.6);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.6);\n}\n60% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n}\n@-webkit-keyframes fly-right-two-data-v-63cd6604 {\n0% {\n    transform: translateY(-2vh) translateX(-10vw) scale(0.5);\n}\n10% {\n    transform: translateY(0vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(-4vh) translateX(30vw) scale(0.6);\n}\n30% {\n    transform: translateY(1vh) translateX(50vw) scale(0.45);\n}\n40% {\n    transform: translateY(-2.5vh) translateX(70vw) scale(0.5);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.45);\n}\n51% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n}\n@keyframes fly-right-two-data-v-63cd6604 {\n0% {\n    transform: translateY(-2vh) translateX(-10vw) scale(0.5);\n}\n10% {\n    transform: translateY(0vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(-4vh) translateX(30vw) scale(0.6);\n}\n30% {\n    transform: translateY(1vh) translateX(50vw) scale(0.45);\n}\n40% {\n    transform: translateY(-2.5vh) translateX(70vw) scale(0.5);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.45);\n}\n51% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n}\n/*\n.container {\n\tposition: relative;\n\tdisplay: flex;\n\talign-content: center;\n\tjustify-content: center;\n\tbackground: {\n\t\timage: linear-gradient(to bottom,  #00c9ff 0%, #92fe9d 100%), url(https://images.unsplash.com/photo-1502726299822-6f583f972e02);\n\t\tblend-mode: multiply;\n\t\tsize: cover;\n\t}\n\toverflow: hidden;\n} */\n/* .bubbles-container {\n    position: absolute;\n    top: 0;\n    left: 50%;\n    width: 100%;\n    max-width: 15rem;\n    transform: translateX(-50%);\n\topacity: 0.75;\n\toverflow: visible;\n}\n\n.bubbles {\n\twidth: 100%;\n\theight: auto;\n\n\tcircle {\n\t\tstroke: white;\n\t\tfill: none;\n\t}\n\n\t> g > g:nth-of-type(3n) circle {\n\t\tstroke: #87f5fb;\n\t}\n\n\t> g > g:nth-of-type(4n) circle {\n\t\tstroke: #8be8cb;\n\t}\n\n}\n\n.bubbles-large {\n\toverflow: visible;\n\n\t> g {\n\t\ttransform: translateY(2048px);\n\t\topacity: 0;\n\t\twill-change: transform, opacity;\n\t}\n\n\tg:nth-of-type(1) {\n\t\tanimation: up 6.5s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(2) {\n\t\tanimation: up 5.25s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(450px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(3) {\n\t\tanimation: up 6s 750ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(700px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(4) {\n\t\tanimation: up 5.5s 1.5s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(500px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(5) {\n\t\tanimation: up 6.5s 4s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(675px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n}\n\n.bubbles-small {\n\toverflow: visible;\n\n\t> g {\n\t\ttransform: translateY(2048px);\n\t\topacity: 0;\n\t\twill-change: transform, opacity;\n\t}\n\n\tg circle {\n\t\ttransform: scale(0);\n\t}\n\n\tg:nth-of-type(1) {\n\t\tanimation: up 5.25s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(2) {\n\t\tanimation: up 5.75s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(750px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(3) {\n\t\tanimation: up 5.25s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 250ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(4) {\n\t\tanimation: up 5.75s 325ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(180px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(5) {\n\t\tanimation: up 6s 125ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 250ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(6) {\n\t\tanimation: up 5.13s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(650px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 125ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(7) {\n\t\tanimation: up 6.25s 350ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(480px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(8) {\n\t\tanimation: up 7s 200ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(330px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(9) {\n\t\tanimation: up 6.25s 233ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(230px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 275ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(10) {\n\t\tanimation: up 6s 900ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(730px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 2s 905ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n}\n\n@keyframes wobble {\n\n\t33% {\n\t\ttransform: translateX(-50px);\n\t}\n\n\t66% {\n\t\ttransform: translateX(50px);\n\t}\n\n}\n\n@keyframes up {\n\n\t0% {\n\t\topacity: 0;\n\t}\n\n\t10%, 90% {\n\t\topacity: 1;\n\t}\n\n\t100% {\n\t\topacity: 0;\n\t\ttransform: translateY(-1024px);\n\t}\n\n} */", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Start https://www.cursors-4u.com */\n*[data-v-63cd6604] {\n  cursor: url(https://cur.cursors-4u.net/cursors/cur-2/cur196.ani), url(https://cur.cursors-4u.net/cursors/cur-2/cur196.png), auto !important;\n}\n\n/* End https://www.cursors-4u.com */\n/* Style backgroud video */\n/* #myVideo {\n    position: fixed;\n    right: 0;\n    bottom: 0;\n    min-width: 100%;\n    min-height: 100%;\n} */\n/* styles button animate */\ncanvas[data-v-63cd6604] {\n  height: 100vh;\n  pointer-events: none;\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  z-index: 2;\n}\n\n/* styles button animate */\n.vs-card__img img[data-v-63cd6604] {\n  height: 250px;\n}\n\n/* Style content url(\"/image/buckled-book.jpg\");*/\n.main-view[data-v-63cd6604] {\n  background-image: url(\"/image/buckled-book.png\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  min-height: 100vh;\n}\n\n/* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n  position: relative;\n  min-height: 100vh;\n  z-index: 99;\n}\n.card-view[data-v-63cd6604] {\n  background-color: #fff0;\n  border: 1px solid rgba(0, 0, 0, 0);\n}\n.card-body-text[data-v-63cd6604] {\n  flex: 1 1 auto;\n  min-height: 1px;\n  padding: 1.25rem;\n}\n.text-title[data-v-63cd6604] {\n  color: white;\n  font-size: 2.5rem;\n  font-weight: bold;\n}\n.text-subtitle[data-v-63cd6604] {\n  color: white;\n  font-size: 1.1rem;\n  text-align: justify;\n  margin: 2rem 0;\n}\n\n/* style for books */\n.style-select-book[data-v-63cd6604] {\n  position: absolute;\n  background: transparent;\n  cursor: pointer;\n}\n.style-select-book[data-v-63cd6604]:hover {\n  background: #ff00003d;\n}\n\n/* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n  position: absolute;\n  background: rgba(0, 0, 0, 0.46);\n  top: -40px;\n  right: 0;\n  padding: 0.2rem 1rem;\n  cursor: pointer;\n}\n.close-pdf[data-v-63cd6604] {\n  color: #fff;\n  font-size: 2rem;\n}\n#pdf-read[data-v-63cd6604] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 15px;\n}\ndiv#close-pdf-read[data-v-63cd6604]:hover {\n  background: #90080861;\n}\n#image-gif[data-v-63cd6604] {\n  position: absolute;\n  top: 40%;\n  left: 25%;\n}\n\n/* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n  margin: 0;\n  padding: 1rem;\n  width: 100%;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n/* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n  position: relative;\n  min-height: 100vh;\n  z-index: 99;\n}\n.view-body[data-v-63cd6604] {\n  flex: 1 1 auto;\n  min-height: 1px;\n  padding: 0.5rem !important;\n}\n#iframe-video[data-v-63cd6604] {\n  width: 100%;\n  height: 22rem;\n}\n\n/* Styles responsive */\n@media (min-width: 30px) and (max-width: 991.98px) {\n.vs-card__img img[data-v-63cd6604] {\n    height: 180px;\n}\n\n  /* Style content first iframe */\n.view-iframe-one[data-v-63cd6604] {\n    min-height: 60vh;\n    contain: content;\n}\n.card-body-text[data-v-63cd6604] {\n    padding: 0.8rem;\n}\n.text-title[data-v-63cd6604] {\n    font-size: 1.5rem;\n}\n.text-subtitle[data-v-63cd6604] {\n    font-size: 0.8rem;\n    margin: 1rem 0;\n}\n\n  /* Read PDF */\n#close-pdf-read[data-v-63cd6604] {\n    top: 0px;\n}\n.close-pdf[data-v-63cd6604] {\n    font-size: 1rem;\n}\n#pdf-read[data-v-63cd6604] {\n    top: 30px;\n}\n\n  /* Estilos compartidos */\n.vertical-center[data-v-63cd6604] {\n    padding: 0;\n}\n\n  /* Style content second iframe */\n.view-iframe-two[data-v-63cd6604] {\n    min-height: 40vh;\n    contain: content;\n}\n#iframe-video[data-v-63cd6604] {\n    height: 13rem;\n}\n}\n/* Styles for large screens  */\n@media (min-width: 1400px) {\n.main-card .vs-card__img[data-v-63cd6604] {\n    max-height: 350px !important;\n}\n\n  /* .vs-card__img img {\n      height: 350px;\n  } */\n}\n/* Aves volando */\n.container-ave[data-v-63cd6604] {\n  z-index: 1;\n  position: absolute;\n  width: 98%;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  min-height: 8rem;\n}\n.bird[data-v-63cd6604] {\n  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);\n  background-size: auto 100%;\n  width: 88px;\n  height: 125px;\n  will-change: background-position;\n  -webkit-animation-name: fly-cycle-data-v-63cd6604;\n          animation-name: fly-cycle-data-v-63cd6604;\n  -webkit-animation-timing-function: steps(10);\n          animation-timing-function: steps(10);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.bird--one[data-v-63cd6604] {\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.bird--two[data-v-63cd6604] {\n  -webkit-animation-duration: 0.9s;\n          animation-duration: 0.9s;\n  -webkit-animation-delay: -0.75s;\n          animation-delay: -0.75s;\n}\n.bird--three[data-v-63cd6604] {\n  -webkit-animation-duration: 1.25s;\n          animation-duration: 1.25s;\n  -webkit-animation-delay: -0.25s;\n          animation-delay: -0.25s;\n}\n.bird--four[data-v-63cd6604] {\n  -webkit-animation-duration: 1.1s;\n          animation-duration: 1.1s;\n  -webkit-animation-delay: -0.5s;\n          animation-delay: -0.5s;\n}\n.bird-container[data-v-63cd6604] {\n  position: absolute;\n  top: -10%;\n  left: -10%;\n  transform: scale(0) translateX(-10vw);\n  will-change: transform;\n  -webkit-animation-name: fly-right-one-data-v-63cd6604;\n          animation-name: fly-right-one-data-v-63cd6604;\n  -webkit-animation-timing-function: linear;\n          animation-timing-function: linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n}\n.bird-container--one[data-v-63cd6604] {\n  -webkit-animation-duration: 15s;\n          animation-duration: 15s;\n  -webkit-animation-delay: 0;\n          animation-delay: 0;\n}\n.bird-container--two[data-v-63cd6604] {\n  -webkit-animation-duration: 16s;\n          animation-duration: 16s;\n  -webkit-animation-delay: 1s;\n          animation-delay: 1s;\n}\n.bird-container--three[data-v-63cd6604] {\n  -webkit-animation-duration: 14.6s;\n          animation-duration: 14.6s;\n  -webkit-animation-delay: 9.5s;\n          animation-delay: 9.5s;\n}\n.bird-container--four[data-v-63cd6604] {\n  -webkit-animation-duration: 16s;\n          animation-duration: 16s;\n  -webkit-animation-delay: 10.25s;\n          animation-delay: 10.25s;\n}\n@-webkit-keyframes fly-cycle-data-v-63cd6604 {\n100% {\n    background-position: -900px 0;\n}\n}\n@keyframes fly-cycle-data-v-63cd6604 {\n100% {\n    background-position: -900px 0;\n}\n}\n@-webkit-keyframes fly-right-one-data-v-63cd6604 {\n0% {\n    transform: scale(0.3) translateX(-10vw);\n}\n10% {\n    transform: translateY(2vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(0vh) translateX(30vw) scale(0.5);\n}\n30% {\n    transform: translateY(4vh) translateX(50vw) scale(0.6);\n}\n40% {\n    transform: translateY(2vh) translateX(70vw) scale(0.6);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.6);\n}\n60% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n}\n@keyframes fly-right-one-data-v-63cd6604 {\n0% {\n    transform: scale(0.3) translateX(-10vw);\n}\n10% {\n    transform: translateY(2vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(0vh) translateX(30vw) scale(0.5);\n}\n30% {\n    transform: translateY(4vh) translateX(50vw) scale(0.6);\n}\n40% {\n    transform: translateY(2vh) translateX(70vw) scale(0.6);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.6);\n}\n60% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.6);\n}\n}\n@-webkit-keyframes fly-right-two-data-v-63cd6604 {\n0% {\n    transform: translateY(-2vh) translateX(-10vw) scale(0.5);\n}\n10% {\n    transform: translateY(0vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(-4vh) translateX(30vw) scale(0.6);\n}\n30% {\n    transform: translateY(1vh) translateX(50vw) scale(0.45);\n}\n40% {\n    transform: translateY(-2.5vh) translateX(70vw) scale(0.5);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.45);\n}\n51% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n}\n@keyframes fly-right-two-data-v-63cd6604 {\n0% {\n    transform: translateY(-2vh) translateX(-10vw) scale(0.5);\n}\n10% {\n    transform: translateY(0vh) translateX(10vw) scale(0.4);\n}\n20% {\n    transform: translateY(-4vh) translateX(30vw) scale(0.6);\n}\n30% {\n    transform: translateY(1vh) translateX(50vw) scale(0.45);\n}\n40% {\n    transform: translateY(-2.5vh) translateX(70vw) scale(0.5);\n}\n50% {\n    transform: translateY(0vh) translateX(90vw) scale(0.45);\n}\n51% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n100% {\n    transform: translateY(0vh) translateX(110vw) scale(0.45);\n}\n}\n/*\n.container {\n\tposition: relative;\n\tdisplay: flex;\n\talign-content: center;\n\tjustify-content: center;\n\tbackground: {\n\t\timage: linear-gradient(to bottom,  #00c9ff 0%, #92fe9d 100%), url(https://images.unsplash.com/photo-1502726299822-6f583f972e02);\n\t\tblend-mode: multiply;\n\t\tsize: cover;\n\t}\n\toverflow: hidden;\n} */\n/* .bubbles-container {\n    position: absolute;\n    top: 0;\n    left: 50%;\n    width: 100%;\n    max-width: 15rem;\n    transform: translateX(-50%);\n\topacity: 0.75;\n\toverflow: visible;\n}\n\n.bubbles {\n\twidth: 100%;\n\theight: auto;\n\n\tcircle {\n\t\tstroke: white;\n\t\tfill: none;\n\t}\n\n\t> g > g:nth-of-type(3n) circle {\n\t\tstroke: #87f5fb;\n\t}\n\n\t> g > g:nth-of-type(4n) circle {\n\t\tstroke: #8be8cb;\n\t}\n\n}\n\n.bubbles-large {\n\toverflow: visible;\n\n\t> g {\n\t\ttransform: translateY(2048px);\n\t\topacity: 0;\n\t\twill-change: transform, opacity;\n\t}\n\n\tg:nth-of-type(1) {\n\t\tanimation: up 6.5s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(2) {\n\t\tanimation: up 5.25s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(450px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(3) {\n\t\tanimation: up 6s 750ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(700px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(4) {\n\t\tanimation: up 5.5s 1.5s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(500px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(5) {\n\t\tanimation: up 6.5s 4s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(675px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n}\n\n.bubbles-small {\n\toverflow: visible;\n\n\t> g {\n\t\ttransform: translateY(2048px);\n\t\topacity: 0;\n\t\twill-change: transform, opacity;\n\t}\n\n\tg circle {\n\t\ttransform: scale(0);\n\t}\n\n\tg:nth-of-type(1) {\n\t\tanimation: up 5.25s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(2) {\n\t\tanimation: up 5.75s infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(750px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(3) {\n\t\tanimation: up 5.25s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 250ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(4) {\n\t\tanimation: up 5.75s 325ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(180px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(5) {\n\t\tanimation: up 6s 125ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(350px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 250ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(6) {\n\t\tanimation: up 5.13s 250ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(650px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 125ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(7) {\n\t\tanimation: up 6.25s 350ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(480px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(8) {\n\t\tanimation: up 7s 200ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(330px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 325ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(9) {\n\t\tanimation: up 6.25s 233ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(230px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 3s 275ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n\tg:nth-of-type(10) {\n\t\tanimation: up 6s 900ms infinite;\n\n\t\tg {\n\t\t\ttransform: translateX(730px);\n\t\t}\n\n\t\tcircle {\n\t\t\tanimation: wobble 2s 905ms infinite ease-in-out;\n\t\t}\n\n\t}\n\n}\n\n@keyframes wobble {\n\n\t33% {\n\t\ttransform: translateX(-50px);\n\t}\n\n\t66% {\n\t\ttransform: translateX(50px);\n\t}\n\n}\n\n@keyframes up {\n\n\t0% {\n\t\topacity: 0;\n\t}\n\n\t10%, 90% {\n\t\topacity: 1;\n\t}\n\n\t100% {\n\t\topacity: 0;\n\t\ttransform: translateY(-1024px);\n\t}\n\n} */", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45285,6 +45464,8 @@ var render = function() {
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-sm-12 col-md-12 col-lg-6" }, [
           _c("div", { staticClass: "view-iframe-one" }, [
+            _c("canvas", { attrs: { id: "canvas" } }),
+            _vm._v(" "),
             _c("div", { staticClass: "vertical-center" }, [
               _c("div", { staticClass: "card card-view" }, [
                 _c("div", { staticClass: "card-body-text text-center" }, [
@@ -45326,86 +45507,48 @@ var render = function() {
                           }
                         },
                         _vm._l(_vm.slides, function(slide) {
-                          return _c(
-                            "splide-slide",
-                            { key: slide.src },
-                            [
-                              _c(
-                                "vs-tooltip",
-                                {
-                                  attrs: { shadow: "" },
-                                  scopedSlots: _vm._u(
-                                    [
-                                      {
-                                        key: "tooltip",
-                                        fn: function() {
-                                          return [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass: "content-tooltip"
-                                              },
-                                              [
-                                                _c("h4", [
-                                                  _vm._v(_vm._s(slide.title))
-                                                ]),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "p",
-                                                  {
-                                                    staticStyle: {
-                                                      "text-align": "justify"
-                                                    }
-                                                  },
-                                                  [
-                                                    _vm._v(
-                                                      _vm._s(slide.description)
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        },
-                                        proxy: true
-                                      }
-                                    ],
-                                    null,
-                                    true
-                                  )
-                                },
-                                [
-                                  _c("vs-card", {
-                                    staticClass: "main-card",
-                                    attrs: { type: "2" },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.click(slide)
-                                      }
-                                    },
+                          return _c("splide-slide", { key: slide.src }, [
+                            _c(
+                              "div",
+                              { attrs: { id: "button" } },
+                              [
+                                _c(
+                                  "vs-tooltip",
+                                  {
+                                    attrs: { shadow: "" },
                                     scopedSlots: _vm._u(
                                       [
                                         {
-                                          key: "title",
+                                          key: "tooltip",
                                           fn: function() {
                                             return [
-                                              _c("h3", [
-                                                _vm._v(_vm._s(slide.title))
-                                              ])
-                                            ]
-                                          },
-                                          proxy: true
-                                        },
-                                        {
-                                          key: "img",
-                                          fn: function() {
-                                            return [
-                                              _c("img", {
-                                                attrs: {
-                                                  src: slide.src,
-                                                  alt: "slide.alt"
-                                                }
-                                              })
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "content-tooltip"
+                                                },
+                                                [
+                                                  _c("h4", [
+                                                    _vm._v(_vm._s(slide.title))
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticStyle: {
+                                                        "text-align": "justify"
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          slide.description
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
                                             ]
                                           },
                                           proxy: true
@@ -45414,13 +45557,55 @@ var render = function() {
                                       null,
                                       true
                                     )
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
+                                  },
+                                  [
+                                    _c("vs-card", {
+                                      staticClass: "main-card",
+                                      attrs: { type: "2" },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.clickButtonAnimate(slide)
+                                        }
+                                      },
+                                      scopedSlots: _vm._u(
+                                        [
+                                          {
+                                            key: "title",
+                                            fn: function() {
+                                              return [
+                                                _c("h3", [
+                                                  _vm._v(_vm._s(slide.title))
+                                                ])
+                                              ]
+                                            },
+                                            proxy: true
+                                          },
+                                          {
+                                            key: "img",
+                                            fn: function() {
+                                              return [
+                                                _c("img", {
+                                                  attrs: {
+                                                    src: slide.src,
+                                                    alt: "slide.alt"
+                                                  }
+                                                })
+                                              ]
+                                            },
+                                            proxy: true
+                                          }
+                                        ],
+                                        null,
+                                        true
+                                      )
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ])
                         }),
                         1
                       )
@@ -45455,7 +45640,7 @@ var render = function() {
                         staticClass:
                           "animate__animated animate__fadeInTopLeft animate__slower",
                         attrs: { id: "close-pdf-read" },
-                        on: { click: _vm.bookOne }
+                        on: { click: _vm.closeIframeBook }
                       },
                       [_c("span", { staticClass: "close-pdf" }, [_vm._v("X")])]
                     )
@@ -45468,7 +45653,7 @@ var render = function() {
                         staticClass:
                           "animate__animated animate__fadeInTopLeft animate__slower",
                         attrs: { id: "pdf-read" },
-                        on: { click: _vm.bookOne }
+                        on: { click: _vm.closeIframeBook }
                       },
                       [
                         _c("embed", {

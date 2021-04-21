@@ -9,6 +9,7 @@
             Cerrar Sesión
         </button>
     </form>
+
     <view-home></view-home>
     {{-- <view-component></view-component> --}}
     {{-- <button-view></button-view> --}}
