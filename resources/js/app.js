@@ -37,6 +37,7 @@ Vue.use( VueSplide );
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('view-home', require('./views/Home.vue').default);
 Vue.component('view-component', require('./views/ViewComponent.vue').default);
+Vue.component('button-view', require('./views/ButtonView.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
