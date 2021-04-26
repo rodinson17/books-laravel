@@ -96,7 +96,8 @@
                                                     id="login-password" name="password" tabindex="2"
                                                     placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                     aria-describedby="password" required
-                                                    value="admin123"/>
+                                                    value="password"/>
+                                                    {{-- value="admin123"/> --}}
 
                                                     {{-- <div class="input-group-append">
                                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>

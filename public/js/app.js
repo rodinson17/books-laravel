@@ -8887,7 +8887,7 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Jacobo y el platena de los miedos',
       description: 'A Jacobo le gusta estar en familia. No importa que cada cual haga lo suyo. Para él, lo mejor es jugar con Susi, porque sabe que la hace reír con sus travesuras.',
       alt: 'Jacobo',
-      url: '/book/Jacobo y el planeta de los miedos.pdf',
+      url: '/book/diauno/Jacobo y el planeta de los miedos.pdf',
       src: "/image/imgbooks/diauno/cub-juego-de-la-nieve.png",
       imgCaratula: "/image/imgbooks/diauno/caratulas/Jacobo-y-el-planeta-de-los-miedos.jpg",
       eventHover: false
@@ -8895,7 +8895,7 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Uno está bien, pero dos mejor',
       description: 'Uno está bien, pero dos mejor. LouismSlobodkin',
       alt: 'Uno está bien',
-      url: '/book/UNO interior_ESP.pdf',
+      url: '/book/diauno/UNO interior_ESP.pdf',
       src: "/image/imgbooks/diauno/uno-esta-bein.png",
       imgCaratula: "/image/imgbooks/diauno/caratulas/uno-esta-bien.jpg",
       eventHover: false
@@ -8903,7 +8903,7 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Nomi y sus queridos animales',
       description: 'Nomi quería un tigre, Nomi quería un oso, Nomi quería un león con aspecto cariñoso.',
       alt: 'Nomi y sus queridos animales',
-      url: '/book/Nomi interior.pdf',
+      url: '/book/diauno/Nomi interior.pdf',
       src: "/image/imgbooks/diauno/nomi-y-sus-queridos.png",
       imgCaratula: "/image/imgbooks/diauno/caratulas/nomi.jpg",
       eventHover: false
@@ -8911,7 +8911,7 @@ __webpack_require__.r(__webpack_exports__);
       title: 'Los matices de matisse',
       description: 'Si fueras un niño llamado Henri Matisse y vivieras en un pueblo triste en el norte de Francia, donde los cielos estuvieran grises.',
       alt: 'Los matices de matisse',
-      url: '/book/PAGES Los matices de Matisse_OK.pdf',
+      url: '/book/diauno/PAGES Los matices de Matisse_OK.pdf',
       src: "/image/imgbooks/diauno/los-matices.png",
       imgCaratula: "/image/imgbooks/diauno/caratulas/matisse.jpg",
       eventHover: false
