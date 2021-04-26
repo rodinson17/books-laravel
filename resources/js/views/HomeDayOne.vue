@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="container-fluid main-view">
+        <div class="container-fluid main-view"
+            :class="{'main-background-book' : changeBackground}">
 
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-6">
@@ -144,6 +145,12 @@
                     <div class="view-iframe-two">
                         <div class="vertical-center">
 
+                            <div id="content-background-img">
+                                <vs-button @click="changeBackground=!changeBackground">
+                                    Fondo
+                                </vs-button>
+                            </div>
+
                             <div id="content-agenda-book">
                                 <vs-button @click="agendaBook=!agendaBook">
                                     Agenda del dia
@@ -240,6 +247,7 @@
                 active: false,
                 heightIframeBook: false,
                 agendaBook: false,
+                changeBackground: false,
                 options: {
                     rewind      : true,
                     perPage     : 3,
@@ -279,6 +287,10 @@
 
         },
         created() {
+            setTimeout( () => {
+                console.log('hola bebe');
+            }, 3000);
+
             /* Lista de libros */
             this.slides = [
                 {
@@ -333,6 +345,9 @@
         min-height: 100vh;
     }
 
+    .main-background-book {
+        background-image: url("/image/background-initial.jpg");
+    }
 
     /* Style content first iframe */
     .view-iframe-one {
@@ -540,6 +555,12 @@
     #iframe-video {
         width: 100%;
         height: 22rem;
+    }
+    div#content-background-img {
+        margin: 0 0 0 75%;
+    }
+    div#content-background-img button {
+        background: #9f793d;
     }
     div#content-agenda-book {
         margin: 0 0 0 75%;

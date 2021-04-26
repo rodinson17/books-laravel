@@ -509,7 +509,7 @@
     /* STAR: estilos para libros */
     .class-position {
         position: absolute;
-        border: 1px solid red;
+        //border: 1px solid red;
     }
 
     div#book-1 {
