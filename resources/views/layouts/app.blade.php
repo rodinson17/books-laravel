@@ -20,15 +20,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="/css/main-style-book.css" rel="stylesheet">
 
     @stack('styles')
 </head>
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav id="main-nav" class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    <img src="/image/logo-santillana.png" alt="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -37,7 +39,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item active">
+                            <a class="nav-link nav-link-book" href="#">Programa <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-book" href="{{ route('day-one') }}">Dia 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-book" href="{{ route('day-two') }}">Dia 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-book" href="{{ route('day-three') }}">Dia 3</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -50,13 +63,24 @@
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                           {{--  @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-book" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i id="logout-icon" class="mr-50" data-feather="power"></i>
+                                    Cerrar Sesión
+                                </a>
+                                <form id="logout-form"  method="POST" action="{{ route('logout') }}" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+
+                            {{-- <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
@@ -72,12 +96,12 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            </li> --}}
                         @endguest
                     </ul>
                 </div>
             </div>
-        </nav> --}}
+        </nav>
 
         <main class="">
             @yield('content')

@@ -28,94 +28,100 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/form-validation.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/page-auth.css">
     <!-- END: Page CSS-->
+
+    <link href="/css/main-style-book.css" rel="stylesheet">
+
 </head>
 <!-- END: Head-->
 
 <body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
 
-    <div class="guani-content background-auth content">
+    <div class="app-content content ">
         <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
             <div class="content-body">
-                <div class="auth-wrapper auth-v1 px-2">
-                    <div class="auth-inner py-2">
-                        <!-- Login v1 -->
-                        <div class="card mb-0">
-                            <div class="card-body">
-                                <a href="javascript:void(0);" class="brand-logo">
-                                    <img width="300" height="100" src="/image/creategica-logo.png" alt="">
-                                </a>
-
-                                <div class="text-center mb-4">
-                                    <h4 class="card-title mb-1">Bienvenido a Books</h4>
-                                    <p class="card-text mb-2">Inicie sesión en su cuenta y comience la transmisión</p>
-                                </div>
-
-                                <form class="auth-login-form mt-2" action="{{ route('login') }}" method="POST">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <label for="login-email" class="form-label">Correo electrónico</label>
-
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                            id="email" name="email" value="{{ old('email') }}"
-                                            placeholder="books@ejemplo.com" aria-describedby="email" tabindex="1"
-                                            autofocus required/>
-
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="d-flex justify-content-between">
-                                            <label for="login-password">Contraseña</label>
-                                            @if (Route::has('password.request'))
-                                                <a href="{{ route('password.request') }}">
-                                                    <small>¿Has olvidado tu contraseña?</small>
-                                                </a>
-                                            @endif
-                                        </div>
-                                        <div class="input-group input-group-merge form-password-toggle">
-                                            <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            id="login-password" name="password" tabindex="2"
-                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                            aria-describedby="password" required/>
-
-                                            <div class="input-group-append">
-                                                <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
-                                            </div>
-
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    {{-- <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" type="checkbox" id="remember-me" tabindex="3" />
-                                            <label class="custom-control-label" for="remember-me"> Remember Me </label>
-                                        </div>
-                                    </div> --}}
-                                    <button class="btn btn-primary btn-block my-4" tabindex="4">Iniciar sesión</button>
-                                </form>
-
-                                {{-- <p class="text-center mt-2">
-                                    <span>¿Nuevo en nuestra plataforma?</span>
-                                    <a href="page-auth-register-v1.html">
-                                        <span>Crea una cuenta</span>
-                                    </a>
-                                </p> --}}
+                <div class="auth-wrapper auth-v2">
+                    <div class="auth-inner row m-0">
+                        <!-- Left Text-->
+                        <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
+                            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5">
+                                <img class="img-fluid" src="/image/img-login.png" alt="Img login" />
                             </div>
                         </div>
-                        <!-- /Login v1 -->
+                        <!-- /Left Text-->
+
+                        <!-- Login-->
+                        <div class="d-flex col-lg-4 align-items-center auth-bg px-2">
+                            <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
+                                <div class="text-center mb-3">
+                                    <img width="180" height="60" src="/image/logo.png" alt="Logo santillana" style="border-radius: 1rem">
+                                </div>
+
+                                <div class="card border-login-book">
+                                    <div class="card-body">
+                                        <form class="auth-login-form mt-2" action="{{ route('login') }}" method="POST">
+                                            @csrf
+
+                                            <h2 class="text-center mb-3">Ingresa tu correo</h2>
+
+                                            <div class="form-group">
+                                                {{-- <label for="login-email" class="form-label">Correo electrónico</label> --}}
+
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                    id="email" name="email" value="{{ old('email') }}"
+                                                    placeholder="books@ejemplo.com" aria-describedby="email" tabindex="1"
+                                                    autofocus required/>
+
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                {{-- <div class="d-flex justify-content-between">
+                                                    <label for="login-password">Contraseña</label>
+                                                    @if (Route::has('password.request'))
+                                                        <a href="{{ route('password.request') }}">
+                                                            <small>¿Has olvidado tu contraseña?</small>
+                                                        </a>
+                                                    @endif
+                                                </div> --}}
+                                                <div class="input-group input-group-merge form-password-toggle">
+                                                    <input type="hidden" class="form-control @error('password') is-invalid @enderror"
+                                                    id="login-password" name="password" tabindex="2"
+                                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                    aria-describedby="password" required
+                                                    value="admin123"/>
+
+                                                    {{-- <div class="input-group-append">
+                                                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                                    </div>
+
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror --}}
+                                                </div>
+                                            </div>
+
+                                            <div id="content-login-book" class="text-center">
+                                                <button id="btn-login-book" class="btn btn-primary">Iniciar sesión</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /Login-->
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

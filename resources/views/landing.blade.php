@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <form id="logout" method="POST" action="{{ route('logout') }}">
+    {{-- <form id="logout" method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="dropdown-item" href="#">
             <i id="logout-icon" class="mr-50" data-feather="power"></i>
             Cerrar Sesión
         </button>
-    </form>
+    </form> --}}
 
     <view-home></view-home>
     {{-- <view-component></view-component> --}}

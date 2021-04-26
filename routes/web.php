@@ -15,10 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group( function() {
-    Route::get(
+    /* Route::get(
         '/landing',
         [ LandingController::class, 'index' ]
-    )->name('landing');
+    )->name('landing'); */
+    Route::get(
+        '/dia-uno',
+        [ LandingController::class, 'indexOne' ]
+    )->name('day-one');
+    Route::get(
+        '/dia-dos',
+        [ LandingController::class, 'indexTwo' ]
+    )->name('day-two');
+    Route::get(
+        '/dia-tres',
+        [ LandingController::class, 'indexThree' ]
+    )->name('day-three');
 });
 
 

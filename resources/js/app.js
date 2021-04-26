@@ -36,6 +36,9 @@ Vue.use( VueSplide );
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('view-home', require('./views/Home.vue').default);
+Vue.component('view-day-one', require('./views/HomeDayOne.vue').default);
+Vue.component('view-day-two', require('./views/HomeDayTwo.vue').default);
+Vue.component('view-day-three', require('./views/HomeDayThree.vue').default);
 Vue.component('view-component', require('./views/ViewComponent.vue').default);
 Vue.component('button-view', require('./views/ButtonView.vue').default);
 

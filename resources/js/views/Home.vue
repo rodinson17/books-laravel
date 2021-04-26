@@ -1,184 +1,118 @@
 <template>
     <div>
-       <!--  <video autoplay muted loop id="myVideo">
-            <source src="/video/library-rigth.mp4" type="video/mp4">
-        </video> -->
-
         <div class="container-fluid main-view">
-            <!-- Animación de aves volando -->
-            <div class="container-ave">
-                <div class="bird-container bird-container--one">
-                    <div class="bird bird--one"></div>
-                </div>
-
-                <div class="bird-container bird-container--two">
-                    <div class="bird bird--two"></div>
-                </div>
-
-                <div class="bird-container bird-container--three">
-                    <div class="bird bird--three"></div>
-                </div>
-
-                <div class="bird-container bird-container--four">
-                    <div class="bird bird--four"></div>
-                </div>
-            </div>
 
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-6">
                     <div class="view-iframe-one">
-                        <canvas id="canvas"></canvas>
+                        <!-- STAR: posición de los libros -->
+                        <div>
+                        <div class="class-position" id="book-1">
 
-                        <div class="vertical-center">
-                            <div class="card card-view">
-                                <div class="card-body-text text-center">
-                                    <h1 class="text-title animate__animated animate__backInDown animate__slow">Los mejores libros para hoy</h1>
-                                    <p class="text-subtitle animate__animated animate__backInLeft animate__slower">
-                                        Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.
-                                    </p>
+                        </div>
+                        <div class="class-position" id="book-2">
 
-                                    <div class="animate__animated animate__zoomIn animate__slower">
-                                        <splide :options="options" has-slider-wrapper>
+                        </div>
+                        <div class="class-position" id="book-3">
 
-                                            <splide-slide v-for="slide in slides" :key="slide.src">
-                                                <div id="button"><!-- @click="clickButtonAnimate" -->
-                                                    <vs-tooltip shadow>
-                                                        <vs-card class="main-card" @click="clickButtonAnimate(slide)" type="2">
-                                                            <template #title>
-                                                                <h3>{{ slide.title }}</h3>
-                                                            </template>
-                                                            <template #img>
-                                                                <img :src="slide.src" alt="slide.alt">
-                                                            </template>
-                                                            <!-- <template #text>
-                                                                <p style="text-align: justify;">{{ slide.title }}</p>
-                                                            </template> -->
-                                                        </vs-card>
+                        </div>
+                        <div class="class-position" id="book-4">
 
-                                                        <template #tooltip>
-                                                            <div class="content-tooltip">
-                                                                <h4>{{slide.title}}</h4>
-                                                                <p style="text-align: justify;">{{slide.description}}</p>
-                                                            </div>
-                                                        </template>
-                                                    </vs-tooltip>
-                                                </div>
-                                            </splide-slide>
-                                        </splide>
+                        </div>
+                        <div class="class-position" id="book-5">
+
+                        </div>
+                        <div class="class-position" id="book-6">
+
+                        </div>
+                        <div class="class-position" id="book-7">
+
+                        </div>
+                        <div class="class-position" id="book-8">
+
+                        </div>
+                        <div class="class-position" id="book-9">
+
+                        </div>
+                        <div class="class-position" id="book-10">
+
+                        </div>
+                        <div class="class-position" id="book-11">
+
+                        </div>
+                        <div class="class-position" id="book-12">
+
+                        </div>
+                        <div class="class-position" id="book-13"
+                            @click="clickShowViewInfoBook(slides[0])"
+                            @mouseover="slides[0].eventHover = true"
+                            @mouseleave="slides[0].eventHover = false">
+                            <img v-if="slides[0].eventHover" :src="slides[0].src" alt="slides[0].alt">
+                        </div>
+                        <div class="class-position" id="book-14">
+
+                        </div>
+                        </div>
+                        <!-- END: posición de los libros -->
+
+                        <div class="vertical-center" :class="{'height-iframe-book' : heightIframeBook}">
+                            <!-- STAR: modal información del libro -->
+                            <div v-if="active" id="content-info-book">
+                                <div @click="closeViewInfoBook"  class="header-info-book">
+                                    <svg id="icon-info-book" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                    </svg>
+                                </div>
+
+                                <div id="body-info-book" class="row">
+                                    <div class="col-5 text-center">
+                                        <img id="img-info-book"
+                                            @click="eventShowIframeBook(slides[0])"
+                                            src="/image/books/book-1.jpg" alt="img">
+                                    </div>
+                                    <div class="col-7">
+                                        <h3>Título del libro</h3>
+                                        <p>Año xx/xx/xxxx</p>
+                                        <p>
+                                            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.
+                                        </p>
+                                        <div class="text-right">
+                                            <button id="btn-info-book"
+                                                @click="eventShowIframeBook(slides[0])"
+                                                type="button"
+                                                class="btn btn-primary btn-sm">
+                                                PDF
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- END: modal información del libro -->
 
-                                <div id="image-gif" v-if="imgGif"
-                                    class="animate__animated animate__zoomIn animate__slower">
-                                    <img src="/image/book-image.gif" alt="image gif">
-                                </div>
+                            <div id="image-gif" v-if="imgGif"
+                                class="animate__animated animate__zoomIn animate__slower">
+                                <img src="/image/book-image.gif" alt="image gif">
+                            </div>
 
-                                <div v-if="openPDF" @click="closeIframeBook" id="close-pdf-read"
-                                    class="animate__animated animate__fadeInTopLeft animate__slower">
-                                    <span class="close-pdf">X</span>
-                                </div>
-                                <div v-if="openPDF" @click="closeIframeBook" id="pdf-read"
-                                    class="animate__animated animate__fadeInTopLeft animate__slower">
-                                    <!-- <iframe :src="urlBook + '#toolbar=0'" sin opciones -->
-                                    <embed :src="urlBook"
-                                        type="application/pdf"
-                                        width="100%"
-                                        height="100%" />
-                                    <!-- <iframe :src="urlBook"
-                                        type="application/pdf"
-                                        width="100%"
-                                        height="100%" /> -->
-                                </div>
+                            <div v-if="openPDF" @click="closeIframeBook" id="close-pdf-read"
+                                class="">
+                                <span class="close-pdf">X</span>
+                            </div>
+                            <div v-if="openPDF" @click="closeIframeBook" id="pdf-read"
+                                class="">
+                                <!-- <iframe :src="urlBook + '#toolbar=0'" sin opciones -->
+                                <embed :src="urlBook"
+                                    type="application/pdf"
+                                    width="100%"
+                                    height="100%" />
+                                <!-- <iframe :src="urlBook"
+                                    type="application/pdf"
+                                    width="100%"
+                                    height="100%" /> -->
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="bubbles-container">
-                        <svg class="bubbles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701 1024" style="overflow: visible;">
-
-                            <g class="bubbles-large" stroke-width="7">
-                                <g>
-                                    <g transform="translate(10 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(373 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(408 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(621 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(179 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                            </g>
-
-                            <g class="bubbles-small" stroke-width="4">
-                                <g>
-                                    <g transform="translate(147 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(255 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(573 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(429 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(91 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(640 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(321 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(376 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(376 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(497 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                            </g>
-
-                        </svg>
-                    </div> -->
                 </div>
 
                 <div class="col-sm-12 col-md-12 col-lg-6">
@@ -197,93 +131,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="bubbles-container">
-                        <svg class="bubbles" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 701 1024" style="overflow: visible;">
-
-                            <g class="bubbles-large" stroke-width="7">
-                                <g>
-                                    <g transform="translate(10 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(373 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(408 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(621 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(179 940)">
-                                        <circle cx="35" cy="35" r="35"/>
-                                    </g>
-                                </g>
-                            </g>
-
-                            <g class="bubbles-small" stroke-width="4">
-                                <g>
-                                    <g transform="translate(147 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(255 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(573 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(429 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(91 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(640 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(321 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(376 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(376 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                                <g>
-                                    <g transform="translate(497 984)">
-                                        <circle cx="15" cy="15" r="15"/>
-                                    </g>
-                                </g>
-                            </g>
-
-                        </svg>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -306,27 +153,43 @@
                 urlBook: "",
                 openPDF: false,
                 imgGif: false,
-                listBook: [],
+                hover: false,
+                active: false,
+                heightIframeBook: false,
                 options: {
-                    //type        : 'loop',
                     rewind      : true,
                     perPage     : 3,
                     perMove     : 1,
                     gap         : '1rem',
-                    //height      : '12rem',
-                    //cover       : true,
-                    autoplay    : true,
-                    pauseOnHover: true,
+                    //autoplay    : true,
+                    //pauseOnHover: true,
                     arrows      : 'slider',
                 },
                 slides: [],
             }
         },
         methods: {
+            clickShowViewInfoBook( book ) {
+                this.active = true
+            },
+            closeViewInfoBook() {
+                this.active = false
+            },
+            eventShowIframeBook( book ) {
+                this.active = false
+                this.heightIframeBook = true
+                this.imgGif = true;
+                this.urlBook = book.url;
+                setTimeout( () => {
+                    this.openPDF = !this.openPDF;
+                    this.imgGif = false;
+                }, 2000);
+            },
             closeIframeBook() {
                 this.openPDF = !this.openPDF;
+                this.heightIframeBook = false
             },
-            clickButtonAnimate( data ) {
+            /* clickButtonAnimate( data ) {
                 this.imgGif = true;
                 this.urlBook = data.url;
                 this.initBurstVue()
@@ -335,7 +198,7 @@
                     this.openPDF = !this.openPDF;
                     this.imgGif = false;
                 }, 2000);
-            },
+            }, */
             initBurstVue() {
                 // ammount to add on each button press
                 const confettiCount = 20
@@ -520,59 +383,61 @@
         },
         created() {
             /* Lista de libros */
-            this.listBook = [
-                '/book/PFC_RogerGimeno.pdf',
-                '/book/reconocimiento en tiempo real.pdf',
-            ]
-
             this.slides = [
                 {
                     title: 'book No. 1',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
                     alt: 'hola1',
                     url: '/book/PFC_RogerGimeno.pdf',
-                    src:"/image/books/book-1.jpg"
+                    src:"/image/book-color.png",
+                    eventHover: false,
                 },
                 {
                     title: 'book No. 2',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
                     alt: 'hola2',
                     url: '/book/reconocimiento en tiempo real.pdf',
-                    src:"/image/books/book-2.png"
+                    src:"/image/books/book-2.png",
+                    eventHover: false,
                 },
                 {
                     title: 'book No. 3',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
                     alt: 'hola3',
                     url: '/book/PFC_RogerGimeno.pdf',
-                    src:"/image/books/book-3.jpg"
+                    src:"/image/books/book-3.jpg",
+                    eventHover: false,
                 },
                 { title: 'book No. 4',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
                     alt: 'hola4',
                     url: '/book/reconocimiento en tiempo real.pdf',
-                    src:"/image/books/book-4.jpg"
+                    src:"/image/books/book-4.jpg",
+                    eventHover: false,
                 },
                 {
                     title: 'book No. 5',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.',
                     alt: 'hola5',
                     url: '/book/PFC_RogerGimeno.pdf',
-                    src:"/image/books/book-5.jpg"
+                    src:"/image/books/book-5.jpg",
+                    eventHover: false,
                 },
                 {
                     title: 'book No. 6',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos.',
                     alt: 'hola6',
                     url: '/book/reconocimiento en tiempo real.pdf',
-                    src:"/image/books/book-6.jpg"
+                    src:"/image/books/book-6.jpg",
+                    eventHover: false,
                 },
                 {
                     title: 'book No. 7',
                     description: 'Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.',
                     alt: 'hola7',
                     url: '/book/PFC_RogerGimeno.pdf',
-                    src:"/image/books/book-7.png"
+                    src:"/image/books/book-7.png",
+                    eventHover: false,
                 },
             ]
         }
@@ -580,46 +445,16 @@
 </script>
 
 <style scoped lang="scss">
-    /* Start https://www.cursors-4u.com */
-    * {
+    /* Start estilos para el cursor */
+    /* * {
         cursor: url(https://cur.cursors-4u.net/cursors/cur-2/cur196.ani),
         url(https://cur.cursors-4u.net/cursors/cur-2/cur196.png),
         auto !important;
-    } /* End https://www.cursors-4u.com */
-
-    /* Style backgroud video */
-    /* #myVideo {
-        position: fixed;
-        right: 0;
-        bottom: 0;
-        min-width: 100%;
-        min-height: 100%;
-    } */
+    } */ /* End estilos para el cursor */
 
 
-    /* styles button animate */
-    canvas {
-        height: 100vh;
-        pointer-events: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 2;
-    }
-    /* styles button animate */
-
-
-
-
-    .vs-card__img img {
-        height: 250px;
-    }
-
-
-    /* Style content url("/image/buckled-book.jpg");*/
     .main-view {
-        background-image: url("/image/buckled-book.png");
+        background-image: url("/image/backgraund-diy-one.jpg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -633,25 +468,131 @@
         min-height: 100vh;
         z-index: 99;
     }
-    .card-view {
-        background-color: #fff0;
-        border: 1px solid rgb(0 0 0 / 0%);
+
+    .height-iframe-book {
+        height: 80%;
     }
-    .card-body-text {
-        flex: 1 1 auto;
-        min-height: 1px;
-        padding: 1.25rem;
+
+    /* STAR: estilos para libros */
+    .class-position {
+        position: absolute;
+        border: 1px solid red;
     }
-    .text-title {
-        color: white;
-        font-size: 2.5rem;
-        font-weight: bold;
+
+    div#book-1 {
+        top: 19.5%;
+        left: 4.6%;
+        height: 8.5%;
+        width: 8.5%;
     }
-    .text-subtitle {
-        color: white;
-        font-size: 1.1rem;
-        text-align: justify;
-        margin: 2rem 0;
+    div#book-2 {
+        top: 28.6%;
+        left: 4.6%;
+        height: 11.3%;
+        width: 9%;
+    }
+    div#book-3 {
+        top: 25.3%;
+        left: 46%;
+        height: 8.5%;
+        width: 6.3%;
+    }
+    div#book-4 {
+        top: 34.7%;
+        left: 46%;
+        height: 8%;
+        width: 6.4%;
+    }
+    div#book-5 {
+        top: 46%;
+        left: 10.5%;
+        height: 10%;
+        width: 7%;
+    }
+    div#book-6 {
+        top: 46.5%;
+        left: 20.5%;
+        height: 9%;
+        width: 7.6%;
+    }
+    div#book-7 {
+        top: 47.3%;
+        left: 31.2%;
+        height: 8%;
+        width: 7%;
+    }
+    div#book-8 {
+        top: 47.8%;
+        left: 40.6%;
+        height: 7.6%;
+        width: 6.5%;
+    }
+    div#book-9 {
+        top: 47%;
+        left: 49.4%;
+        height: 8.5%;
+        width: 6.3%;
+    }
+    div#book-10 {
+        top: 60%;
+        left: 41.4%;
+        height: 11.2%;
+        width: 8.5%;
+    }
+    div#book-11 {
+        top: 60.2%;
+        left: 54.77%;
+        height: 10.7%;
+        width: 8.5%;
+    }
+    div#book-12 {
+        top: 60.2%;
+        left: 54.77%;
+        height: 10.7%;
+        width: 8.5%;
+    }
+    div#book-13 {
+        top: 63.5%;
+        left: 47.6%;
+        height: 11.7%;
+        width: 8.5%;
+    }
+    div#book-14 {
+        top: 63%;
+        left: 62.3%;
+        height: 11.2%;
+        width: 8.5%;
+    }
+    /* END: estilos para libros */
+
+
+    div#content-info-book {
+        background: #EBEBEB;
+        margin: 0 6%;
+    }
+    .header-info-book {
+        background: #7B592F;
+        height: 2.2rem;
+        text-align: right;
+        cursor: pointer;
+    }
+    #icon-info-book {
+        margin: 0.47rem;
+        color: #fff;
+    }
+    #body-info-book {
+        margin: 0;
+        padding: 1rem;
+    }
+    img#img-info-book {
+        width: 100%;
+        margin: 20% 0 0 0;
+        cursor: pointer;
+    }
+    #btn-info-book {
+        padding: 0.25rem 1rem;
+        background: #9E7441;
+        border-color: #9E7441;
     }
 
 
@@ -680,7 +621,6 @@
     }
     #pdf-read {
         position: absolute;
-        //background: rgba(0, 0, 255, 0.151);
         width: 100%;
         height: 100%;
         top: 15px;
@@ -781,465 +721,5 @@
         .main-card .vs-card__img {
             max-height: 350px !important;
         }
-        /* .vs-card__img img {
-            height: 350px;
-        } */
     }
-
-
-    /* Aves volando */
-.container-ave {
-	z-index: 1;
-	position: absolute;
-    width: 98%;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 8rem;
-	//background-blend-mode: soft-light;
-    //padding: 2rem;
-}
-
-.bird {
-	background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
-	background-size: auto 100%;
-	width: 88px;
-	height: 125px;
-	will-change: background-position;
-
-	animation-name: fly-cycle;
-	animation-timing-function: steps(10);
-	animation-iteration-count: infinite;
-
-	&--one {
-		animation-duration: 1s;
-		animation-delay: -0.5s;
-	}
-
-	&--two {
-		animation-duration: 0.9s;
-		animation-delay: -0.75s;
-	}
-
-	&--three {
-		animation-duration: 1.25s;
-		animation-delay: -0.25s;
-	}
-
-	&--four {
-		animation-duration: 1.1s;
-		animation-delay: -0.5s;
-	}
-
-}
-
-.bird-container {
-	position: absolute;
-	top: -10%;
-	left: -10%;
-	transform: scale(0) translateX(-10vw);
-	will-change: transform;
-
-	animation-name: fly-right-one;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-
-	&--one {
-		animation-duration: 15s;
-		animation-delay: 0;
-	}
-
-	&--two {
-		animation-duration: 16s;
-		animation-delay: 1s;
-	}
-
-	&--three {
-		animation-duration: 14.6s;
-		animation-delay: 9.5s;
-	}
-
-	&--four {
-		animation-duration: 16s;
-		animation-delay: 10.25s;
-	}
-
-}
-
-@keyframes fly-cycle {
-
-	100% {
-		background-position: -900px 0;
-	}
-
-}
-
-@keyframes fly-right-one {
-
-	0% {
-		transform: scale(0.3) translateX(-10vw);
-	}
-
-	10% {
-		transform: translateY(2vh) translateX(10vw) scale(0.4);
-	}
-
-	20% {
-		transform: translateY(0vh) translateX(30vw) scale(0.5);
-	}
-
-	30% {
-		transform: translateY(4vh) translateX(50vw) scale(0.6);
-	}
-
-	40% {
-		transform: translateY(2vh) translateX(70vw) scale(0.6);
-	}
-
-	50% {
-		transform: translateY(0vh) translateX(90vw) scale(0.6);
-	}
-
-	60% {
-		transform: translateY(0vh) translateX(110vw) scale(0.6);
-	}
-
-	100% {
-		transform: translateY(0vh) translateX(110vw) scale(0.6);
-	}
-
-}
-
-@keyframes fly-right-two {
-
-	0% {
-		transform: translateY(-2vh) translateX(-10vw) scale(0.5);
-	}
-
-	10% {
-		transform: translateY(0vh) translateX(10vw) scale(0.4);
-	}
-
-	20% {
-		transform: translateY(-4vh) translateX(30vw) scale(0.6);
-	}
-
-	30% {
-		transform: translateY(1vh) translateX(50vw) scale(0.45);
-	}
-
-	40% {
-		transform: translateY(-2.5vh) translateX(70vw) scale(0.5);
-	}
-
-	50% {
-		transform: translateY(0vh) translateX(90vw) scale(0.45);
-	}
-
-	51% {
-		transform: translateY(0vh) translateX(110vw) scale(0.45);
-	}
-
-	100% {
-		transform: translateY(0vh) translateX(110vw) scale(0.45);
-	}
-
-}
-
-
-
-/*
-.container {
-	position: relative;
-	display: flex;
-	align-content: center;
-	justify-content: center;
-	background: {
-		image: linear-gradient(to bottom,  #00c9ff 0%, #92fe9d 100%), url(https://images.unsplash.com/photo-1502726299822-6f583f972e02);
-		blend-mode: multiply;
-		size: cover;
-	}
-	overflow: hidden;
-} */
-
-/* .bubbles-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    max-width: 15rem;
-    transform: translateX(-50%);
-	opacity: 0.75;
-	overflow: visible;
-}
-
-.bubbles {
-	width: 100%;
-	height: auto;
-
-	circle {
-		stroke: white;
-		fill: none;
-	}
-
-	> g > g:nth-of-type(3n) circle {
-		stroke: #87f5fb;
-	}
-
-	> g > g:nth-of-type(4n) circle {
-		stroke: #8be8cb;
-	}
-
-}
-
-.bubbles-large {
-	overflow: visible;
-
-	> g {
-		transform: translateY(2048px);
-		opacity: 0;
-		will-change: transform, opacity;
-	}
-
-	g:nth-of-type(1) {
-		animation: up 6.5s infinite;
-
-		g {
-			transform: translateX(350px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(2) {
-		animation: up 5.25s 250ms infinite;
-
-		g {
-			transform: translateX(450px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(3) {
-		animation: up 6s 750ms infinite;
-
-		g {
-			transform: translateX(700px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(4) {
-		animation: up 5.5s 1.5s infinite;
-
-		g {
-			transform: translateX(500px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(5) {
-		animation: up 6.5s 4s infinite;
-
-		g {
-			transform: translateX(675px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-}
-
-.bubbles-small {
-	overflow: visible;
-
-	> g {
-		transform: translateY(2048px);
-		opacity: 0;
-		will-change: transform, opacity;
-	}
-
-	g circle {
-		transform: scale(0);
-	}
-
-	g:nth-of-type(1) {
-		animation: up 5.25s infinite;
-
-		g {
-			transform: translateX(350px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(2) {
-		animation: up 5.75s infinite;
-
-		g {
-			transform: translateX(750px);
-		}
-
-		circle {
-			animation: wobble 3s infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(3) {
-		animation: up 5.25s 250ms infinite;
-
-		g {
-			transform: translateX(350px);
-		}
-
-		circle {
-			animation: wobble 3s 250ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(4) {
-		animation: up 5.75s 325ms infinite;
-
-		g {
-			transform: translateX(180px);
-		}
-
-		circle {
-			animation: wobble 3s 325ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(5) {
-		animation: up 6s 125ms infinite;
-
-		g {
-			transform: translateX(350px);
-		}
-
-		circle {
-			animation: wobble 3s 250ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(6) {
-		animation: up 5.13s 250ms infinite;
-
-		g {
-			transform: translateX(650px);
-		}
-
-		circle {
-			animation: wobble 3s 125ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(7) {
-		animation: up 6.25s 350ms infinite;
-
-		g {
-			transform: translateX(480px);
-		}
-
-		circle {
-			animation: wobble 3s 325ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(8) {
-		animation: up 7s 200ms infinite;
-
-		g {
-			transform: translateX(330px);
-		}
-
-		circle {
-			animation: wobble 3s 325ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(9) {
-		animation: up 6.25s 233ms infinite;
-
-		g {
-			transform: translateX(230px);
-		}
-
-		circle {
-			animation: wobble 3s 275ms infinite ease-in-out;
-		}
-
-	}
-
-	g:nth-of-type(10) {
-		animation: up 6s 900ms infinite;
-
-		g {
-			transform: translateX(730px);
-		}
-
-		circle {
-			animation: wobble 2s 905ms infinite ease-in-out;
-		}
-
-	}
-
-}
-
-@keyframes wobble {
-
-	33% {
-		transform: translateX(-50px);
-	}
-
-	66% {
-		transform: translateX(50px);
-	}
-
-}
-
-@keyframes up {
-
-	0% {
-		opacity: 0;
-	}
-
-	10%, 90% {
-		opacity: 1;
-	}
-
-	100% {
-		opacity: 0;
-		transform: translateY(-1024px);
-	}
-
-} */
 </style>
